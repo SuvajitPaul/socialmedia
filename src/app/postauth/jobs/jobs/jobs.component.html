@@ -1,0 +1,71 @@
+<div>
+  <app-header></app-header>
+</div>
+<div class="main-ws-sec">
+  <div *ngIf="!search; else jobpostBlock">
+    <div *ngFor="let post of jobpost;let i = index;">
+      <div class="post-bar">
+        <div class="post_topbar">
+          <div class="usy-dt">
+            <img src="../../../../assets/images/resources/user.png" alt="">
+            <div class="usy-name">
+              <h3>{{post.data.name}}</h3>
+              <span><img src="../../../../assets/clock.png" alt="">{{post.timeStamp| date:'full'}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="epi-sec">
+          <ul class="descp">
+            <li><img src="../../../../assets/images/icon9.png" alt=""><span>{{post.data.country}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="job_descp">
+          <h3>{{post.data.title}}</h3>
+          <ul class="job-dt">
+            <li><a href="#" title="">Full Time</a></li>
+            <li><span>{{post.data.price | currency:'INR'}} CTC</span></li>
+          </ul>
+          <h6 class="text-warning">Description</h6>
+          <p>{{post.data.description}}</p>
+          <h6 class="text-danger ">Skill</h6>
+          <p>{{post.data.skills}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #jobpostBlock>
+    <div *ngFor="let post of searchjobitem;let i = index;">
+      <div class="post-bar">
+        <div class="post_topbar">
+          <div class="usy-dt">
+            <img src="../../../../assets/images/resources/user.png" alt="">
+            <div class="usy-name">
+              <h3>{{post.data.name}}</h3>
+              <span><img src="../../../../assets/clock.png" alt="">{{post.timeStamp| date:'full'}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="epi-sec">
+          <ul class="descp">
+            <li><img src="../../../../assets/images/icon9.png" alt=""><span>{{post.data.country}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="job_descp">
+          <h3>{{post.data.title}}</h3>
+          <ul class="job-dt">
+            <li><a href="#" title="">Full Time</a></li>
+            <li><span>{{post.data.price | currency:'INR'}} CTC</span></li>
+          </ul>
+          <h6 class="text-warning">Description</h6>
+          <p>{{post.data.description}}</p>
+          <h6 class="text-danger ">Skill</h6>
+          <p>{{post.data.skills}}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

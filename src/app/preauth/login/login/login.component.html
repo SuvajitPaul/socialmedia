@@ -1,0 +1,103 @@
+<div class="signin-popup">
+    <div class="signin-pop">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="cmp-info">
+                    <div class="cm-logo">
+                        <img src="../../../../assets/images/cm-logo.png" alt="">
+                        <p>Workwise, is a global freelancing platform and social networking where businesses and
+                            independent professionals connect and collaborate remotely</p>
+                    </div>
+                    <img src="../../../../assets/images/cm-main-img.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login-sec">
+                    <ul class="sign-control">
+                        <li data-tab="tab-1" class="current"><a routerLink="" title="">Sign in</a></li>
+                        <li data-tab="tab-1"><a routerLink="reg" title="">Sign up</a></li>
+                    </ul>
+                    <div class="sign_in_sec current" id="tab-1">
+                        <h3>Sign in</h3>
+                        <form [formGroup]="Loginform" (ngSubmit)="logindata()">
+                            <div class="row">
+                                <div class="form-group col-lg-12 no-pdd">
+                                    <div class="sn-field">
+                                        <input type="text" formControlName="username" placeholder="Username">
+                                    </div>
+                                </div>
+                                <div *ngIf="Loginform.controls.username.invalid && ((Loginform.controls.username.dirty || Loginform.controls.username.touched) || isRegisterFormValid)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="Loginform.controls.username.errors?.required">
+                                        username is required.
+                                    </div>
+                                    <div *ngIf="Loginform.controls.username.errors?.maxlength">
+                                        username cannot be more than
+                                        {{Loginform.controls.username.errors?.maxlength?.requiredLength}} characters
+                                        long.
+                                    </div>
+                                    <div *ngIf="Loginform.controls.username.errors?.minlength">
+                                        username must be at least 3 characters long.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group col-lg-12 no-pdd">
+                                        <div class="sn-field">
+                                            <input [type]="dynType" formControlName="password" placeholder="Password">
+                                            <span class="material-icons-outlined">
+                                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
+                                                    *ngIf="visible==false" (click)="showpassword(dynType)">
+                                            </span>
+                                            <span class="material-icons-outlined">
+                                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
+                                                    *ngIf="visible==true" (click)="showpassword(dynType)">
+                                            </span>
+                                            <div *ngIf="Loginform.controls.password.invalid && ((Loginform.controls.password.dirty || Loginform.controls.password.touched) || isRegisterFormValid)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="Loginform.controls.password.errors?.required">Password is
+                                                    required</div>
+                                                <div *ngIf="Loginform.controls.password.errors?.minlength">Password must
+                                                    be at least 8
+                                                    characters</div>
+                                                <div *ngIf="Loginform.controls.password.errors?.maxlength">Password not
+                                                    more than 20
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 no-pdd">
+                                    <button type="submit"  value="submit">Sign in</button>
+                                </div>
+                                <div>
+                                    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff"
+                                        type="ball-scale-multiple"
+                                        template="<img src='../../../../assets/images/cm-logo.png' />">
+                                        <p style="font-size: 20px; color: white">Loading...</p>
+                                    </ngx-spinner>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="login-resources">
+                            <h4> Or Login Via Social Account</h4>
+                            <ul>
+                                <li>
+                                    <a (click)="googlesignin()" class="tw">
+                                        <span class="material-icons-outlined">
+                                            <img src="../../../../assets/1x/outline_g_translate_black_24dp.png">
+
+                                        </span>Login Via Google
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <app-footer></app-footer>
+    </div>
+</div>

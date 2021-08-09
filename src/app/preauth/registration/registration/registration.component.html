@@ -1,0 +1,184 @@
+<div class="main-w3layouts wrapper sign-in">
+    <h1>Workwise SignUp Form</h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <form [formGroup]="RegisterForm" (ngSubmit)="regdata()">
+                <div class="form-group">
+                    <input class="text" type="text" formControlName="fullname" placeholder="Fullname" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.fullname.invalid && ((RegisterForm.controls.fullname.dirty || RegisterForm.controls.fullname.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.fullname.errors?.required">
+                        Fullname is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.fullname.errors?.maxlength">
+                        Fullname cannot be more than
+                        {{RegisterForm.controls.fullname.errors?.maxlength?.requiredLength}} characters long.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.fullname.errors?.minlength">
+                        Fullname must be at least 3 characters long.
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="text" type="text" formControlName="username" placeholder="Username" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.username.invalid && ((RegisterForm.controls.username.dirty || RegisterForm.controls.username.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.username.errors?.required">
+                        username is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.username.errors?.maxlength">
+                        username cannot be more than
+                        {{RegisterForm.controls.username.errors?.maxlength?.requiredLength}} characters long.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.username.errors?.minlength">
+                        username must be at least 2 characters long.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="text email" type="email" formControlName="email" placeholder="Email" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.email.invalid && ((RegisterForm.controls.email.dirty || RegisterForm.controls.email.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.email.errors?.required">
+                        email is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.email.errors?.pattern" class="error"><sup>*</sup>Please enter
+                        correct
+                        email</div>
+                </div>
+
+                <div class="form-group">
+                    <input class="text" (keypress)="keyPress($event)" type="text" formControlName="mobilenumber"
+                        placeholder="Phonenumber" minlength="10" maxlength="10" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.mobilenumber.invalid && ((RegisterForm.controls.mobilenumber.dirty || RegisterForm.controls.mobilenumber.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.mobilenumber.errors?.required">
+                        mobilenumber is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.mobilenumber.errors?.maxlength">
+                        mobilenumber cannot be more than
+                        {{RegisterForm.controls.username.errors?.maxlength?.requiredLength}} characters long.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.mobilenumber.errors?.minlength">
+                        mobilenumber must be at least 10 characters long.
+                    </div>
+
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="text" type="text" formControlName="profession" placeholder="Profession" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.profession.invalid && ((RegisterForm.controls.profession.dirty || RegisterForm.controls.profession.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.profession.errors?.required">
+                        profession is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.profession.errors?.maxlength">
+                        profession cannot be more than
+                        {{RegisterForm.controls.profession.errors?.maxlength?.requiredLength}} characters long.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.profession.errors?.minlength">
+                        profession must be at least 8 characters long.
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="text" type="text" formControlName="gender" placeholder="Gender" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.gender.invalid && ((RegisterForm.controls.gender.dirty || RegisterForm.controls.gender.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.gender.errors?.required">
+                        Gender is required.
+                    </div>
+
+                    <div *ngIf="RegisterForm.controls.gender.errors?.minlength">
+                        Gender must be at least 4 characters long.
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="text" (keypress)="keyPress($event)" type="text" formControlName="dob"
+                        placeholder="Date of Birth(DD/MM/YYYY)" required="">
+                </div>
+                <div *ngIf="RegisterForm.controls.dob.invalid && ((RegisterForm.controls.dob.dirty || RegisterForm.controls.dob.touched) || isRegisterFormValid)"
+                    class="alert alert-danger">
+                    <div *ngIf="RegisterForm.controls.dob.errors?.required">
+                        Date of Birth is required.
+                    </div>
+                    <div *ngIf="RegisterForm.controls.dob.errors?.maxlength">
+                        Date of Birth cannot be more than
+                        {{RegisterForm.controls.username.errors?.maxlength?.requiredLength}} characters long.
+                    </div>
+
+                    <div *ngIf="RegisterForm.controls.dob.errors?.minlength">
+                        Date of Birth must be at least 8 characters long.
+                    </div>
+                    
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="form-group col-lg-12 no-pdd">
+                        <div class="sn-field">
+                            <input [type]="dynType" formControlName="password" placeholder="Password">
+                            <span class="material-icons-outlined">
+                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
+                                    *ngIf="visible==false" (click)="showpassword(dynType)">
+
+                            </span>
+                            <div *ngIf="RegisterForm.controls.password.invalid && ((RegisterForm.controls.password.dirty || RegisterForm.controls.password.touched) || isRegisterFormValid)"
+                                class="alert alert-danger">
+                                <div *ngIf="RegisterForm.controls.password.errors?.required">Password is required</div>
+                                <div *ngIf="RegisterForm.controls.password.errors?.minlength">Password must be at least
+                                    8
+                                    characters</div>
+                                <div *ngIf="RegisterForm.controls.password.errors?.maxlength">Password not more than 20
+                                </div>
+                            </div>
+                            <span class="material-icons-outlined">
+                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
+                                    *ngIf="visible==true" (click)="showpassword(dynType)">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br>
+                <div class="form-group">
+                    <div class="form-group col-lg-12 no-pdd">
+                        <div class="sn-field">
+                            <input [type]="dynType" formControlName="confirmpassword" placeholder="Confirm Password">
+                            <span class="material-icons-outlined">
+                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
+                                    *ngIf="visible==false" (click)="showpassword(dynType)">
+
+                            </span>
+                            <div *ngIf="RegisterForm.controls.confirmpassword.invalid && ((RegisterForm.controls.confirmpassword.dirty || RegisterForm.controls.confirmpassword.touched) || isRegisterFormValid)"
+                                class="alert alert-danger">
+                                <div *ngIf="RegisterForm.controls.confirmpassword.errors?.required">Confirm Password is
+                                    required</div>
+
+                                <div
+                                    *ngIf="(RegisterForm.controls.confirmpassword.errors?.mustMatch)||(RegisterForm.controls.confirmPassword.errors?.minlength)">
+                                    Passwords must match</div>
+                            </div>
+                            <span class="material-icons-outlined">
+                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
+                                    *ngIf="visible==true" (click)="showpassword(dynType)">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <div class="form-group">
+                    <input type="submit"  value="SIGNUP">
+                </div>
+            </form>
+            <p>Already have an Account? <a routerLink=""> Login Now!</a></p>
+        </div>
+    </div>
+    <div>
+        <app-footer></app-footer>
+    </div>
+</div>

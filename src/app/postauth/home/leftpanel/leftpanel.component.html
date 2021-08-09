@@ -1,0 +1,19 @@
+<div class="user-data full-width">
+    <div class="user-profile">
+        <div class="username-dt">
+            <div class="usr-pic">
+                <img src="../../../../assets/images/resources/user.png" alt="">
+            </div>
+        </div>
+        <div class="user-specs">
+            <h3 [ngStyle]="{'font-size.px':20,'font-style':'bold','color':'orange'}">
+                {{details.FirstName}}</h3>
+            <span>{{details.role_id}}</span>
+        </div>
+    </div>
+    <ul class="user-fw-status">
+        <li>
+            <a routerLink="/postauth/profile" title="">View Profile</a>
+        </li>
+    </ul>
+</div>

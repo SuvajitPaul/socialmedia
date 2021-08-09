@@ -1,0 +1,512 @@
+<div>
+    <app-header></app-header>
+</div>
+<br><br>
+<main>
+    <div class="main-section">
+        <div class="container">
+            <div class="main-section-data">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+                        <div class="main-left-sidebar no-margin">
+                            <app-leftpanel></app-leftpanel>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-8 no-pd">
+                        <div class="main-ws-sec">
+                            <div class="post-topbar">
+                                <div class="user-picy">
+                                    <img src="../../../../assets/images/resources/user.png" alt="">
+                                </div>
+                                <app-post></app-post>
+
+                            </div>
+                            <div class="posts-section">
+                                <div *ngIf="!searchjobitem; else searchjobBlock">
+                                    <div *ngFor="let job of jobpost;let i = index;">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="../../../../assets/images/resources/user.png" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>{{job.data.name}}</h3>
+                                                        <span><img src="../../../../assets/clock.png"
+                                                                alt="">{{job.timeStamp| date:'full'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="../../../../assets/images/icon9.png"
+                                                            alt=""><span>{{job.data.country}}</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="job.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                    (click)="Updaterecordjob(job,updatejob)">Edit
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="job.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                    (click)="Deleterecordjob(job.id)">Delete
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>{{job.data.title | uppercase}}</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>{{job.data.price | currency:'INR'}} CTC</span></li>
+                                                </ul>
+                                                <h6 class="text-warning">Description</h6>
+                                                <p>{{job.data.description | lowercase | describe:10}}</p>
+
+                                                <h6 class="text-danger ">Skill</h6>
+                                                <p>{{job.data.skills}}</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #searchjobBlock>
+                                    <div *ngFor="let searchjob of searchjobitem;let i = index;">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="../../../../assets/images/resources/user.png" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>{{searchjob.data.name}}</h3>
+                                                        <span><img src="../../../../assets/clock.png"
+                                                                alt="">{{searchjob.timeStamp| date:'full'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="epi-sec">
+                                                <ul class="descp">
+                                                    <li><img src="../../../../assets/images/icon9.png"
+                                                            alt=""><span>{{searchjob.data.country}}</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="bk-links">
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="searchjob.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                    (click)="Updaterecordjob(searchjob,updatejob)">Edit
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="searchjob.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                    (click)="Deleterecordjob(searchjob.id)">Delete
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="job_descp">
+                                                <h3>{{searchjob.data.title | uppercase}}</h3>
+                                                <ul class="job-dt">
+                                                    <li><a title="">Full Time</a></li>
+                                                    <li><span>{{searchjob.data.price | currency:'INR'}} CTC</span></li>
+                                                </ul>
+                                                <h6 class="text-warning">Description</h6>
+                                                <p>{{searchjob.data.description | lowercase | describe:10}}</p>
+
+                                                <h6 class="text-danger ">Skill</h6>
+                                                <p>{{searchjob.data.skills}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div *ngIf="!searchpost; else searchpostblock">
+                                    <div *ngFor="let post of sharepost;let i = index;">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="../../../../assets/images/resources/user.png" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>{{post.data.name}}</h3>
+                                                        <span><img src="../../../../assets/clock.png"
+                                                                alt="">{{post.timeStamp| date:'full'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="job_descp" id="imagepdf">
+                                                <div [froalaView]="post.data.post"></div>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="imagebox">
+                                                                    <img [src]="post.data.link" class="img-fluid">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <ul class="bk-links">
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined">
+                                                                <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
+                                                                    (click)="Download(post.data.link)">Download
+                                                            </span>
+
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="post.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                    (click)="Deletepost(post.id)">Delete
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="post.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                    (click)="editpost(post,updatepost)">Edit
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #searchpostblock>
+                                    <div *ngFor="let searchpost of searchpost;let i = index;">
+                                        <div class="post-bar">
+                                            <div class="post_topbar">
+                                                <div class="usy-dt">
+                                                    <img src="../../../../assets/images/resources/user.png" alt="">
+                                                    <div class="usy-name">
+                                                        <h3>{{searchpost.data.name}}</h3>
+                                                        <span><img src="../../../../assets/clock.png"
+                                                                alt="">{{searchpost.timeStamp| date:'full'}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="job_descp" id="imagepdf">
+                                                <div [froalaView]="searchpost.data.post"></div>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="imagebox">
+                                                                    <img [src]="searchpost.data.link" class="img-fluid">
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <ul class="bk-links">
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined">
+                                                                <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
+                                                                    (click)="Download(searchpost.data.link)">Download
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="searchpost.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                    (click)="Deletepost(searchpost.id)">Delete
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a title="">
+                                                            <span class="material-icons-outlined"
+                                                                *ngIf="post.data.username==profilerole">
+                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                    (click)="editpost(post,updatepost)">Edit
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div class="posts-section">
+                                    <div *ngIf="!searchproject; else projectblock">
+                                        <div *ngFor="let post of projectpost;let i = index;">
+                                            <div class="post-bar">
+                                                <div class="post_topbar">
+                                                    <div class="usy-dt">
+                                                        <img src="../../../../assets/images/resources/user.png" alt="">
+                                                        <div class="usy-name">
+                                                            <h3>{{post.data.name}}</h3>
+                                                            <span><img src="../../../../assets/clock.png"
+                                                                    alt="">{{post.timeStamp| date:'full'}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="epi-sec">
+                                                    <ul class="descp">
+                                                        <li><img src="../../../../assets/images/icon9.png"
+                                                                alt=""><span>{{post.data.country1}}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <ul class="bk-links">
+                                                        <li>
+                                                            <a title="">
+                                                                <span class="material-icons-outlined"
+                                                                    *ngIf="post.data.username==profilerole">
+                                                                    <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                        (click)="editproject(post,updateproject)">Edit
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a title="">
+                                                                <span class="material-icons-outlined"
+                                                                    *ngIf="post.data.username==profilerole">
+                                                                    <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                        (click)="Deleterecordproject(post.id)">Delete
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="job_descp">
+                                                    <h3> {{post.data.title1 | uppercase}}</h3>
+                                                    <ul class="job-dt">
+                                                        <li><a href="#" title="">Project Cost Ranges</a></li>
+                                                        <li><span> {{post.data.price1 | currency:'INR':'code'}} </span>
+                                                        </li>
+                                                        <li><span>to</span></li>
+                                                        <li><span>{{post.data.price2 | currency:'INR' :'code'}} </span>
+                                                        </li>
+                                                    </ul>
+                                                    <h5 class="text-warning ">Description</h5>
+                                                    <p>{{post.data.description1 | lowercase | describe:10}}</p>
+                                                    <h6 class="text-danger ">Skill</h6>
+                                                    <p>{{post.data.skills1}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #projectblock>
+                                        <div *ngFor="let post of searchproject;let i = index;">
+                                            <div class="post-bar">
+                                                <div class="post_topbar">
+                                                    <div class="usy-dt">
+                                                        <img src="../../../../assets/images/resources/user.png" alt="">
+                                                        <div class="usy-name">
+                                                            <h3>{{post.data.name}}</h3>
+                                                            <span><img src="../../../../assets/clock.png"
+                                                                    alt="">{{post.timeStamp| date:'full'}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="epi-sec">
+                                                    <ul class="descp">
+
+                                                        <li><img src="../../../../assets/images/icon9.png"
+                                                                alt=""><span>{{post.data.country1}}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <ul class="bk-links">
+                                                        <li>
+                                                            <a title="">
+                                                                <span class="material-icons-outlined"
+                                                                    *ngIf="post.data.username==profilerole">
+                                                                    <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                                                        (click)="editproject(post,updateproject)">Edit
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a title="">
+                                                                <span class="material-icons-outlined"
+                                                                    *ngIf="post.data.username==profilerole">
+                                                                    <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                                                        (click)="Deleterecordproject(post.id)">Delete
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="job_descp">
+                                                    <h3> {{post.data.title1 | uppercase}}</h3>
+                                                    <ul class="job-dt">
+                                                        <li><a href="#" title="">Project Cost Ranges</a></li>
+                                                        <li><span> {{post.data.price1 | currency:'INR':'code'}} </span>
+                                                        </li>
+                                                        <li><span>to</span></li>
+                                                        <li><span>{{post.data.price2 | currency:'INR' :'code'}} </span>
+                                                        </li>
+                                                    </ul>
+                                                    <h5 class="text-warning ">Description</h5>
+                                                    <p>{{post.data.description1 | lowercase | describe:10}}</p>
+                                                    <h6 class="text-danger ">Skill</h6>
+                                                    <p>{{post.data.skills1}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <div class="process-comm">
+                                        <div class="spinner">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<ng-template #updatejob>
+    <div>
+        <div class="post-project">
+            <h3>Post a job</h3>
+            <div class="post-project-fields">
+                <form [formGroup]="postjobform" (ngSubmit)="updatejobs()">
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <input type="text" formControlName="title" placeholder="Title1">
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <input type="text" formControlName="country" placeholder="country">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="skills" placeholder="Skills">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="price-br">
+                                <input type="text" formControlName="price" placeholder="Price">
+                                <i class="la la-dollar"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea formControlName="description" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button class="active" type="submit">Update</button>
+                                </li>
+                                <li><a (click)="close()" title="">Cancel</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <a (click)="close()" title="">(X)</a>
+        </div>
+    </div>
+</ng-template>
+<ng-template #updateproject>
+    <div>
+        <div class="post-project">
+            <h3>Post a project</h3>
+            <div class="post-project-fields">
+                <form [formGroup]="postjobform" (ngSubmit)="updateprojects()">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="title1" placeholder="5565">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="country1" placeholder="country">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="skills1" placeholder="Skills">
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="price-sec">
+                                <div class="price-br">
+                                    <input type="text" formControlName="price1" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                                <span>To</span>
+                                <div class="price-br">
+                                    <input type="text" formControlName="price2" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea formControlName="description1" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button class="active" type="submit">Update</button></li>
+                                <li><a (click)="close()" title="">Cancel</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <a (click)="close()" title="">(X)</a>
+        </div>
+    </div>
+</ng-template>
+<ng-template #updatepost>
+    <div [froalaEditor] [(froalaModel)]="editorContent">
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="postjobform">
+                    <div class="text-center">
+                        <img [src]="imgSrc" width="500px" height="300px" (click)="fileUploader.click()">
+                    </div>
+                    <div class="form-group ">
+                        <label>Select file to upload</label>
+                        <input type="file" accept="image/*" class="form-control" #fileUploader
+                            formControlName="imageUrl" (change)="showPreview($event)">
+                    </div>
+                    <div><button (click)="filereset()">Reset</button></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <a (click)="close()" class="btn btn-primary btn-block float-right">CANCEL</a>
+        </div>
+        <div class="form-group col-md-6">
+            <button type="submit" (click)="updateposts()" class="btn btn-success btn-block float-right">Submit</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,123 @@
+<div class="post-st">
+    <ul>
+        <li><a (click)="openproject(postproject)" title="">Post a Project</a></li>
+        <li><a (click)="openModal(postjobs)" title="">Post a Job</a></li>
+        <li><a class="post-jb active" (click)="Sharethought(sharethoughts)" title="">Share Thoughts</a></li>
+    </ul>
+</div>
+
+<ng-template #postproject>
+    <div>
+        <div class="post-project">
+            <h3>Post a project</h3>
+            <div class="post-project-fields">
+                <form [formGroup]="postjobform" (ngSubmit)="postprojects()">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="title1" placeholder="Title">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="country1" placeholder="country">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="skills1" placeholder="Skills">
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="price-sec">
+                                <div class="price-br">
+                                    <input type="text" formControlName="price1" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                                <span>To</span>
+                                <div class="price-br">
+                                    <input type="text" formControlName="price2" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea formControlName="description1" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button class="active" type="submit">Post
+                                        Project</button></li>
+                                <li><a title="">Cancel</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <a title="">(X)</a>
+        </div>
+    </div>
+</ng-template>
+<ng-template #postjobs>
+    <div>
+        <div class="post-project">
+            <h3>Post a job</h3>
+            <div class="post-project-fields">
+                <form [formGroup]="postjobform" (ngSubmit)="postjob()">
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <input type="text" formControlName="title" placeholder="Title">
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <input type="text" formControlName="country" placeholder="country">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="skills" placeholder="Skills">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="price-br">
+                                <input type="text" formControlName="price" placeholder="Price">
+                                <i class="la la-dollar"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea formControlName="description" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button class="active" type="submit" value="post">Post</button></li>
+                                <li><a (click)="close()" title="">Cancel</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <a (click)="close()" title="">(X)</a>
+        </div>
+    </div>
+</ng-template>
+<ng-template #sharethoughts>
+    <div [froalaEditor] [(froalaModel)]="editorContent">
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="postjobform">
+                    <div class="text-center">
+                        <img [src]="imgSrc" width="500px" height="300px" (click)="fileUploader.click()">
+                    </div>
+                    <div class="form-group ">
+                        <label>Select file to upload</label>
+                        <input type="file" accept="image/*" class="form-control" #fileUploader
+                            formControlName="imageUrl" (change)="showPreview($event)">
+                    </div>
+                    <div><button (click)="filereset()">Reset</button></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <a (click)="close()" class="btn btn-primary btn-block float-right">CANCEL</a>
+        </div>
+        <div class="form-group col-md-6">
+            <button type="submit" (click)="sharethought()" class="btn btn-success btn-block float-right">Submit</button>
+        </div>
+    </div>
+</ng-template>
