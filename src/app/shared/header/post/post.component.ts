@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
       description1: [''],
       country1: [''],
     });
-
+    this.resetform();
   }
   ngOnInit(): void {
     this.profiledetails();
@@ -73,7 +73,7 @@ export class PostComponent implements OnInit {
     }
   }
   close() {
-    this.postjobform.reset();
+    this.resetform();
     this.modalRef.hide();
   }
   postjob() {
@@ -98,5 +98,9 @@ export class PostComponent implements OnInit {
       })
       this.close();
     }
+  }
+  resetform() {
+    this.postjobform.reset();
+    this.postprojectform.reset();
   }
 }

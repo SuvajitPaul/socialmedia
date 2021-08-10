@@ -9,6 +9,7 @@ import { PostprojectService } from 'src/app/service/postproject.service';
 import { DescribePipe } from 'src/app/shared/pipe/describe.pipe';
 import { SearchService } from 'src/app/service/search.service';
 import { LeftpanelComponent } from './leftpanel/leftpanel.component';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -18,6 +19,7 @@ import { LeftpanelComponent } from './leftpanel/leftpanel.component';
   imports: [
     CommonModule,
     HeaderModule,
+    MatButtonModule,
     HeaderModule, 
     HomeRoutingModule,
     FormsModule,

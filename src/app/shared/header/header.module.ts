@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { SearchService } from 'src/app/service/search.service';
 import { PostComponent } from './post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    MatButtonModule,
     ReactiveFormsModule,
     HeaderRoutingModule
   ],

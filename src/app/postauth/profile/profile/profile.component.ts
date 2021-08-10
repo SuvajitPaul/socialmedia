@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, {
       validator: this.MustMatch('password', 'confirmPassword')
     });
-
+    this.resetform();
     this.Viewdata();
   }
   ngOnDestroy(): void {
@@ -245,6 +245,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
   close() {
+    this.resetform();
     this.modalRef.hide();
   }
   searchdata() {
@@ -264,5 +265,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+  resetform() {
+    this.postjobform.reset();
+    this.postprojectform.reset();
+    this.passwordform.reset();
   }
 }

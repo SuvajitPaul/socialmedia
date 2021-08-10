@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RegService } from 'src/app/service/reg.service';
 import { CustomepipePipe } from 'src/app/shared/pipe/customepipe.pipe';
 import { SearchService } from 'src/app/service/search.service';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -21,6 +22,7 @@ import { SearchService } from 'src/app/service/search.service';
   imports: [
     CommonModule,
     HeaderModule,
+    MatButtonModule,
     HeaderModule,
     FormsModule,
     ReactiveFormsModule,

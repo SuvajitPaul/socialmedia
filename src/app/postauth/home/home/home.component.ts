@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       description1: [''],
       country1: [''],
     });
+    this.resetform();
     this.Viewdata();
     this.profiledetails();
     this.searchdata();
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
   close() {
+    this.resetform();
     this.modalRef.hide();
   }
   Deleterecordjob(id: any) {
@@ -132,7 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.jobapi.Update(this.updateWithId, record);
       this.toastr.success('Job post updated');
       this.postjobform.reset();
-      this.close(); 
+      this.close();
     }
   }
   editproject(record: any, template: TemplateRef<any>) {
@@ -186,5 +188,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+  resetform() {
+    this.postjobform.reset();
+    this.postprojectform.reset();
   }
 }

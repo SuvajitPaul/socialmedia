@@ -14,8 +14,8 @@
             <div class="col-lg-6">
                 <div class="login-sec">
                     <ul class="sign-control">
-                        <li data-tab="tab-1" class="current"><a routerLink="" title="">Sign in</a></li>
-                        <li data-tab="tab-1"><a routerLink="reg" title="">Sign up</a></li>
+                       <li><button type=submit routerLink="" mat-raised-button color="warn">Sign in</button></li>
+                       <li><button type=submit routerLink="reg" mat-raised-button>Sign up</button></li>
                     </ul>
                     <div class="sign_in_sec current" id="tab-1">
                         <h3>Sign in</h3>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12 no-pdd">
-                                    <button type="submit"  value="submit">Sign in</button>
+                                    <button type=submit mat-raised-button color="warn">Sign in</button>
                                 </div>
                                 <div>
                                     <ngx-spinner>
@@ -72,11 +72,13 @@
                             <h4> Or Login Via Social Account</h4>
                             <ul>
                                 <li>
-                                    <a (click)="googlesignin()" class="tw">
+                                    <button (click)="googlesignin()" mat-raised-button color="warn">
                                         <span class="material-icons-outlined">
                                             <img src="../../../../assets/1x/outline_g_translate_black_24dp.png">
                                         </span>Login Via Google
-                                    </a>
+                                    </button>
+
+
                                 </li>
                             </ul>
                         </div>
