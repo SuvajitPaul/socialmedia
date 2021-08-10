@@ -10,9 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class JobsComponent implements OnInit, OnDestroy {
   jobpost: any;
-  role1: string = '';
-  data: any;
-  details: any;
   search: any;
   searchjobitem: any;
   joblink: Subscription | any;

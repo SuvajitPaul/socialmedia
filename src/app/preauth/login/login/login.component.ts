@@ -4,7 +4,6 @@ import { RegService } from 'src/app/service/reg.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { GoogleserviceService } from 'src/app/service/googleservice.service';
 @Component({
   selector: 'app-login',
@@ -24,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private route: Router, private formBuilder: FormBuilder, private regservice: RegService, private toastr: ToastrService, private spinner: NgxSpinnerService, private googleservice: GoogleserviceService) {
     this.Loginform = this.formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(10)])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
     });
   }
@@ -72,15 +71,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log('credential incorrect');
       }
     })
-  }
-  showpassword(type: string) {
-    if (this.visible == true) {
-      this.visible = false;
-      this.dynType = 'text';
-    } else {
-      this.visible = true;
-      this.dynType = 'password';
-    }
   }
   storedata() {
     this.toastr.success('Login', 'success');

@@ -20,7 +20,6 @@
                                     <img src="../../../../assets/images/resources/user.png" alt="">
                                 </div>
                                 <app-post></app-post>
-
                             </div>
                             <div class="posts-section">
                                 <div *ngIf="!searchjobitem; else searchjobBlock">
@@ -132,126 +131,6 @@
 
                                                 <h6 class="text-danger ">Skill</h6>
                                                 <p>{{searchjob.data.skills}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                                <div *ngIf="!searchpost; else searchpostblock">
-                                    <div *ngFor="let post of sharepost;let i = index;">
-                                        <div class="post-bar">
-                                            <div class="post_topbar">
-                                                <div class="usy-dt">
-                                                    <img src="../../../../assets/images/resources/user.png" alt="">
-                                                    <div class="usy-name">
-                                                        <h3>{{post.data.name}}</h3>
-                                                        <span><img src="../../../../assets/clock.png"
-                                                                alt="">{{post.timeStamp| date:'full'}}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="job_descp" id="imagepdf">
-                                                <div [froalaView]="post.data.post"></div>
-                                                <div>
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="imagebox">
-                                                                    <img [src]="post.data.link" class="img-fluid">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <ul class="bk-links">
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined">
-                                                                <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
-                                                                    (click)="Download(post.data.link)">Download
-                                                            </span>
-
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined"
-                                                                *ngIf="post.data.username==profilerole">
-                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
-                                                                    (click)="Deletepost(post.id)">Delete
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined"
-                                                                *ngIf="post.data.username==profilerole">
-                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
-                                                                    (click)="editpost(post,updatepost)">Edit
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ng-template #searchpostblock>
-                                    <div *ngFor="let searchpost of searchpost;let i = index;">
-                                        <div class="post-bar">
-                                            <div class="post_topbar">
-                                                <div class="usy-dt">
-                                                    <img src="../../../../assets/images/resources/user.png" alt="">
-                                                    <div class="usy-name">
-                                                        <h3>{{searchpost.data.name}}</h3>
-                                                        <span><img src="../../../../assets/clock.png"
-                                                                alt="">{{searchpost.timeStamp| date:'full'}}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="job_descp" id="imagepdf">
-                                                <div [froalaView]="searchpost.data.post"></div>
-                                                <div>
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="imagebox">
-                                                                    <img [src]="searchpost.data.link" class="img-fluid">
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <ul class="bk-links">
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined">
-                                                                <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
-                                                                    (click)="Download(searchpost.data.link)">Download
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined"
-                                                                *ngIf="searchpost.data.username==profilerole">
-                                                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
-                                                                    (click)="Deletepost(searchpost.id)">Delete
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a title="">
-                                                            <span class="material-icons-outlined"
-                                                                *ngIf="post.data.username==profilerole">
-                                                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
-                                                                    (click)="editpost(post,updatepost)">Edit
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -393,8 +272,6 @@
         </div>
     </div>
 </main>
-
-
 <ng-template #updatejob>
     <div>
         <div class="post-project">
@@ -404,6 +281,12 @@
                     <div class="row">
                         <div class="form-group col-lg-12">
                             <input type="text" formControlName="title" placeholder="Title1">
+                        </div>
+                        <div *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isRegisterFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="postjobform.controls.title.errors?.required">
+                                Title is required.
+                            </div>
                         </div>
                         <div class="form-group col-lg-12">
                             <input type="text" formControlName="country" placeholder="country">
@@ -440,10 +323,16 @@
         <div class="post-project">
             <h3>Post a project</h3>
             <div class="post-project-fields">
-                <form [formGroup]="postjobform" (ngSubmit)="updateprojects()">
+                <form [formGroup]="postprojectform" (ngSubmit)="updateprojects()">
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="text" formControlName="title1" placeholder="5565">
+                        </div>
+                        <div *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isRegisterFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="postprojectform.controls.title1.errors?.required">
+                                Title is required.
+                            </div>
                         </div>
                         <div class="col-lg-12">
                             <input type="text" formControlName="country1" placeholder="country">
@@ -477,36 +366,6 @@
                 </form>
             </div>
             <a (click)="close()" title="">(X)</a>
-        </div>
-    </div>
-</ng-template>
-<ng-template #updatepost>
-    <div [froalaEditor] [(froalaModel)]="editorContent">
-    </div>
-    <div>
-        <div class="card">
-            <div class="card-body">
-                <form [formGroup]="postjobform">
-                    <div class="text-center">
-                        <img [src]="imgSrc" width="500px" height="300px" (click)="fileUploader.click()">
-                    </div>
-                    <div class="form-group ">
-                        <label>Select file to upload</label>
-                        <input type="file" accept="image/*" class="form-control" #fileUploader
-                            formControlName="imageUrl" (change)="showPreview($event)">
-                    </div>
-                    <div><button (click)="filereset()">Reset</button></div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <a (click)="close()" class="btn btn-primary btn-block float-right">CANCEL</a>
-        </div>
-        <div class="form-group col-md-6">
-            <button type="submit" (click)="updateposts()" class="btn btn-success btn-block float-right">Submit</button>
         </div>
     </div>
 </ng-template>

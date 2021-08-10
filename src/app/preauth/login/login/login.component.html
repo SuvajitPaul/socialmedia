@@ -37,21 +37,13 @@
                                         long.
                                     </div>
                                     <div *ngIf="Loginform.controls.username.errors?.minlength">
-                                        username must be at least 3 characters long.
+                                        username must be at least 2 characters long.
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-group col-lg-12 no-pdd">
                                         <div class="sn-field">
-                                            <input [type]="dynType" formControlName="password" placeholder="Password">
-                                            <span class="material-icons-outlined">
-                                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
-                                                    *ngIf="visible==false" (click)="showpassword(dynType)">
-                                            </span>
-                                            <span class="material-icons-outlined">
-                                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
-                                                    *ngIf="visible==true" (click)="showpassword(dynType)">
-                                            </span>
+                                            <input type="password" formControlName="password" placeholder="Password">
                                             <div *ngIf="Loginform.controls.password.invalid && ((Loginform.controls.password.dirty || Loginform.controls.password.touched) || isRegisterFormValid)"
                                                 class="alert alert-danger">
                                                 <div *ngIf="Loginform.controls.password.errors?.required">Password is
@@ -70,9 +62,7 @@
                                     <button type="submit"  value="submit">Sign in</button>
                                 </div>
                                 <div>
-                                    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff"
-                                        type="ball-scale-multiple"
-                                        template="<img src='../../../../assets/images/cm-logo.png' />">
+                                    <ngx-spinner>
                                         <p style="font-size: 20px; color: white">Loading...</p>
                                     </ngx-spinner>
                                 </div>
@@ -85,7 +75,6 @@
                                     <a (click)="googlesignin()" class="tw">
                                         <span class="material-icons-outlined">
                                             <img src="../../../../assets/1x/outline_g_translate_black_24dp.png">
-
                                         </span>Login Via Google
                                     </a>
                                 </li>
@@ -95,9 +84,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div>
-        <app-footer></app-footer>
     </div>
 </div>

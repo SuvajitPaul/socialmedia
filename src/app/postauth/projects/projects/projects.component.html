@@ -24,7 +24,7 @@
             </ul>        
         </div>
         <div class="job_descp">
-            <h3> {{post.data.title1}}</h3>
+            <h3> {{post.data.title1| uppercase}}</h3>
             <ul class="job-dt">
                 <li><a  title="">Project Cost Ranges</a></li>
                 <li><span> {{post.data.price1 | currency:'INR':'code'}} </span>
@@ -64,7 +64,7 @@
                 </ul>            
             </div>
             <div class="job_descp">
-                <h3> {{post.data.title1}}</h3>
+                <h3> {{post.data.title1| uppercase}}</h3>
                 <ul class="job-dt">
                     <li><a  title="">Project Cost Ranges</a></li>
                     <li><span> {{post.data.price1 | currency:'INR':'code'}} </span>

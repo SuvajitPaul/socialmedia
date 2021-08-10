@@ -99,35 +99,11 @@
                     </div>
                 </div>
                 <br>
-                <div class="form-group">
-                    <input class="text" (keypress)="keyPress($event)" type="text" formControlName="dob"
-                        placeholder="Date of Birth(DD/MM/YYYY)" required="">
-                </div>
-                <div *ngIf="RegisterForm.controls.dob.invalid && ((RegisterForm.controls.dob.dirty || RegisterForm.controls.dob.touched) || isRegisterFormValid)"
-                    class="alert alert-danger">
-                    <div *ngIf="RegisterForm.controls.dob.errors?.required">
-                        Date of Birth is required.
-                    </div>
-                    <div *ngIf="RegisterForm.controls.dob.errors?.maxlength">
-                        Date of Birth cannot be more than
-                        {{RegisterForm.controls.username.errors?.maxlength?.requiredLength}} characters long.
-                    </div>
-
-                    <div *ngIf="RegisterForm.controls.dob.errors?.minlength">
-                        Date of Birth must be at least 8 characters long.
-                    </div>
-                    
-                </div>
                 <br>
                 <div class="form-group">
                     <div class="form-group col-lg-12 no-pdd">
                         <div class="sn-field">
-                            <input [type]="dynType" formControlName="password" placeholder="Password">
-                            <span class="material-icons-outlined">
-                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
-                                    *ngIf="visible==false" (click)="showpassword(dynType)">
-
-                            </span>
+                            <input type="password" formControlName="password" placeholder="Password">
                             <div *ngIf="RegisterForm.controls.password.invalid && ((RegisterForm.controls.password.dirty || RegisterForm.controls.password.touched) || isRegisterFormValid)"
                                 class="alert alert-danger">
                                 <div *ngIf="RegisterForm.controls.password.errors?.required">Password is required</div>
@@ -137,10 +113,6 @@
                                 <div *ngIf="RegisterForm.controls.password.errors?.maxlength">Password not more than 20
                                 </div>
                             </div>
-                            <span class="material-icons-outlined">
-                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
-                                    *ngIf="visible==true" (click)="showpassword(dynType)">
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -148,37 +120,28 @@
                 <div class="form-group">
                     <div class="form-group col-lg-12 no-pdd">
                         <div class="sn-field">
-                            <input [type]="dynType" formControlName="confirmpassword" placeholder="Confirm Password">
-                            <span class="material-icons-outlined">
-                                <img src="./../../../../assets/1x/outline_visibility_black_24dp.png"
-                                    *ngIf="visible==false" (click)="showpassword(dynType)">
-
-                            </span>
+                            <input type="password" formControlName="confirmpassword" placeholder="Confirm Password">
                             <div *ngIf="RegisterForm.controls.confirmpassword.invalid && ((RegisterForm.controls.confirmpassword.dirty || RegisterForm.controls.confirmpassword.touched) || isRegisterFormValid)"
                                 class="alert alert-danger">
-                                <div *ngIf="RegisterForm.controls.confirmpassword.errors?.required">Confirm Password is
-                                    required</div>
-
-                                <div
-                                    *ngIf="(RegisterForm.controls.confirmpassword.errors?.mustMatch)||(RegisterForm.controls.confirmPassword.errors?.minlength)">
-                                    Passwords must match</div>
+                                <div *ngIf="RegisterForm.controls.confirmpassword.errors?.required">Password is required
+                                </div>
+                                <div *ngIf="RegisterForm.controls.confirmpassword.errors?.minlength">Password must be at
+                                    least
+                                    8
+                                    characters</div>
+                                <div *ngIf="RegisterForm.controls.confirmpassword.errors?.maxlength">Password not more
+                                    than 20
+                                </div>
                             </div>
-                            <span class="material-icons-outlined">
-                                <img src="./../../../../assets/1x/outline_visibility_off_black_24dp.png"
-                                    *ngIf="visible==true" (click)="showpassword(dynType)">
-                            </span>
                         </div>
                     </div>
                 </div>
-                <br><br><br>
+                <br><br><br><br>
                 <div class="form-group">
-                    <input type="submit"  value="SIGNUP">
+                    <input type="submit" value="SIGNUP">
                 </div>
             </form>
             <p>Already have an Account? <a routerLink=""> Login Now!</a></p>
         </div>
-    </div>
-    <div>
-        <app-footer></app-footer>
     </div>
 </div>

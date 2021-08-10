@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WildcardComponent } from './wildcard/wildcard.component';
 
 const routes: Routes = [
   {

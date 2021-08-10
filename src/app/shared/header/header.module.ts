@@ -5,7 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { SearchService } from 'src/app/service/search.service';
 import { PostComponent } from './post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 
 
 @NgModule({
@@ -17,8 +17,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
     HeaderRoutingModule
   ],
   exports:[

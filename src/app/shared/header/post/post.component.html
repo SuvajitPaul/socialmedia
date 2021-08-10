@@ -1,8 +1,7 @@
 <div class="post-st">
     <ul>
         <li><a (click)="openproject(postproject)" title="">Post a Project</a></li>
-        <li><a (click)="openModal(postjobs)" title="">Post a Job</a></li>
-        <li><a class="post-jb active" (click)="Sharethought(sharethoughts)" title="">Share Thoughts</a></li>
+        <li><a class="active" (click)="openjob(postjobs)" title="">Post a Job</a></li>
     </ul>
 </div>
 
@@ -11,10 +10,16 @@
         <div class="post-project">
             <h3>Post a project</h3>
             <div class="post-project-fields">
-                <form [formGroup]="postjobform" (ngSubmit)="postprojects()">
+                <form [formGroup]="postprojectform" (ngSubmit)="postprojects()">
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="text" formControlName="title1" placeholder="Title">
+                        </div>
+                        <div *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isRegisterFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="postprojectform.controls.title1.errors?.required">
+                                Title is required.
+                            </div>
                         </div>
                         <div class="col-lg-12">
                             <input type="text" formControlName="country1" placeholder="country">
@@ -42,13 +47,13 @@
                             <ul>
                                 <li><button class="active" type="submit">Post
                                         Project</button></li>
-                                <li><a title="">Cancel</a></li>
+                                <li><a (click)="close()" title="">Cancel</a></li>
                             </ul>
                         </div>
                     </div>
                 </form>
             </div>
-            <a title="">(X)</a>
+            <a (click)="close()" title="">(X)</a>
         </div>
     </div>
 </ng-template>
@@ -61,6 +66,12 @@
                     <div class="row">
                         <div class="form-group col-lg-12">
                             <input type="text" formControlName="title" placeholder="Title">
+                        </div>
+                        <div *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isRegisterFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="postjobform.controls.title.errors?.required">
+                                Title is required.
+                            </div>
                         </div>
                         <div class="form-group col-lg-12">
                             <input type="text" formControlName="country" placeholder="country">
@@ -88,36 +99,6 @@
                 </form>
             </div>
             <a (click)="close()" title="">(X)</a>
-        </div>
-    </div>
-</ng-template>
-<ng-template #sharethoughts>
-    <div [froalaEditor] [(froalaModel)]="editorContent">
-    </div>
-    <div>
-        <div class="card">
-            <div class="card-body">
-                <form [formGroup]="postjobform">
-                    <div class="text-center">
-                        <img [src]="imgSrc" width="500px" height="300px" (click)="fileUploader.click()">
-                    </div>
-                    <div class="form-group ">
-                        <label>Select file to upload</label>
-                        <input type="file" accept="image/*" class="form-control" #fileUploader
-                            formControlName="imageUrl" (change)="showPreview($event)">
-                    </div>
-                    <div><button (click)="filereset()">Reset</button></div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <a (click)="close()" class="btn btn-primary btn-block float-right">CANCEL</a>
-        </div>
-        <div class="form-group col-md-6">
-            <button type="submit" (click)="sharethought()" class="btn btn-success btn-block float-right">Submit</button>
         </div>
     </div>
 </ng-template>

@@ -20,16 +20,12 @@ export class RegistrationComponent implements OnInit {
       fullname: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       username: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-
       mobilenumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(10)]],
-
-
       gender: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      dob: ['', Validators.compose([Validators.required,  Validators.minLength(10), Validators.maxLength(10)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
       confirmpassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
       profession: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
-      
+
     },
       {
         validator: this.MustMatch('password', 'confirmpassword')
@@ -62,7 +58,6 @@ export class RegistrationComponent implements OnInit {
       record['UserName'] = this.RegisterForm.value.username;
       record['Phonenumber'] = this.RegisterForm.value.mobilenumber;
       record['email'] = this.RegisterForm.value.email;
-      record['dob'] = this.RegisterForm.value.dob;
       record['gender'] = this.RegisterForm.value.gender;
       record['role_id'] = this.RegisterForm.value.profession;
       record['password'] = this.RegisterForm.value.password;
@@ -86,23 +81,10 @@ export class RegistrationComponent implements OnInit {
     this.RegisterForm.reset();
   }
   keyPress(event: any) {
-    const pattern = /[0-9\+\-\/\ ]/;
+    const pattern = /[0-9\+\-\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
-  showpassword(type: string) {
-
-    if (this.visible == false) {
-      this.visible = true;
-      this.dynType = 'text';
-
-    } else {
-      this.visible = false;
-      this.dynType = 'password';
-    }
-
-  }
-
 }

@@ -28,13 +28,6 @@
                   <h3 [ngClass]="['text-success']">{{details.FirstName | customepipe:this.details.gender }}</h3>
                   <div class="star-descp">
                     <span>{{this.details.role_id}}</span>
-                    <ul>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star-half-o"></i></li>
-                    </ul>
                   </div>
                   <div class="post-topbar">
                     <div class="user-picy">
@@ -103,7 +96,7 @@
                             <div class="job_descp">
                               <h3>{{job.data.title | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a href="#" title="">Full Time</a></li>
+                                <li><a  title="">Full Time</a></li>
                                 <li><span>{{job.data.price | currency:'INR'}} CTC</span></li>
                               </ul>
                               <h6 class="text-warning">Description</h6>
@@ -169,114 +162,6 @@
                         </div>
                       </div>
                     </ng-template>
-                    <div *ngIf="!search; else postblock">
-                      <div *ngFor="let post of sharepost;let i = index;">
-                        <div *ngIf="post.data.username==profilerole">
-                          <div class="post-bar">
-                            <div class="post_topbar">
-                              <div class="usy-dt">
-                                <img src="../../../../assets/images/resources/user.png" alt="">
-                                <div class="usy-name">
-                                  <h3>{{post.data.name}}</h3>
-                                  <span><img src="../../../../assets/clock.png" alt="">{{post.timeStamp| date:'full'}}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="job_descp" id="imagepdf">
-                              <div [froalaView]="post.data.post"></div>
-                              <div>
-                                <table>
-                                  <tr>
-                                    <td>
-                                      <div class="imagebox">
-                                        <img [src]="post.data.link" class="img-fluid">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </table>
-                              </div>
-                              <ul class="bk-links">
-                                <li>
-                                  <a title="">
-                                    <span class="material-icons-outlined">
-                                      <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
-                                        (click)="Download(post.data.link)">Download
-                                    </span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a title="">
-                                    <span class="material-icons-outlined">
-                                      <img src="../../../../assets/1x/outline_delete_black_24dp.png"
-                                        (click)="Deleterecordpost(post.id)">Delete
-                                    </span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a title="">
-                                    <span class="material-icons-outlined">
-                                      <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
-                                        (click)="editpost(post,updatepost)">Edit
-                                    </span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <ng-template #postblock>
-                      <div *ngFor="let post of searchpost;let i = index;">
-                        <div *ngIf="post.data.username==profilerole">
-                          <div class="post-bar">
-                            <div class="post_topbar">
-                              <div class="usy-dt">
-                                <img src="../../../../assets/images/resources/user.png" alt="">
-                                <div class="usy-name">
-                                  <h3>{{post.data.name}}</h3>
-                                  <span><img src="../../../../assets/clock.png" alt="">{{post.timeStamp| date:'full'}}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="job_descp" id="imagepdf">
-                              <div [froalaView]="post.data.post"></div>
-                              <div>
-                                <table>
-                                  <tr>
-                                    <td>
-                                      <div class="imagebox">
-                                        <img [src]="post.data.link" class="img-fluid">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </table>
-                              </div>
-                              <ul class="bk-links">
-                                <li>
-                                  <a title="">
-                                    <span class="material-icons-outlined">
-                                      <img src="../../../../assets/1x/outline_cloud_upload_black_24dp.png"
-                                        (click)="Download(post.data.link)">Download
-                                    </span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a title="">
-                                    <span class="material-icons-outlined">
-                                      <img src="../../../../assets/1x/outline_delete_black_24dp.png"
-                                        (click)="Deleterecordpost(post.id)">Delete
-                                    </span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ng-template>
                     <div *ngIf="!search; else projectblock">
                       <div *ngFor="let project of projectpost;let i = index;">
                         <div *ngIf="project.data.username==profilerole">
@@ -321,7 +206,7 @@
                             <div class="job_descp">
                               <h3> {{project.data.title1 | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a href="#" title="">Project Cost Ranges</a></li>
+                                <li><a  title="">Project Cost Ranges</a></li>
                                 <li><span> {{project.data.price1 | currency:'INR':'code'}} </span>
                                 </li>
                                 <li><span>to</span></li>
@@ -417,7 +302,6 @@
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">Phone</th>
                             <th scope="col" class="text-center">Username</th>
-                            <th scope="col" class="text-center">DOB</th>
                             <th scope="col" class="text-center">Gender</th>
                             <th scope="col" class="text-center">Profession</th>
                           </tr>
@@ -428,7 +312,6 @@
                             <td>{{details.email}}</td>
                             <td>{{details.Phonenumber}}</td>
                             <td>{{details.UserName}}</td>
-                            <td>{{details.dob| date }}</td>
                             <td>{{details.gender}}</td>
                             <td>{{details.role_id}}</td>
                           </tr>
@@ -439,18 +322,18 @@
                   </div>
                   <div class="user-profile-ov container">
                     <div *ngIf="block">
-                      <form [formGroup]="postjobform" (ngSubmit)="passwordupdate()">
+                      <form [formGroup]="passwordform" (ngSubmit)="passwordupdate()">
                         <div class="form-group">
                           <label style="color:#ff4500;" class="control-label" required> Old Password</label>
                           <input type="password" formControlName="oldpassword" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="postjobform.controls.oldpassword.invalid && ((postjobform.controls.oldpassword.dirty || postjobform.controls.oldpassword.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.oldpassword.invalid && ((passwordform.controls.oldpassword.dirty || passwordform.controls.oldpassword.touched) || isRegisterFormValid)"
                             class="alert alert-danger">
-                            <div *ngIf="postjobform.controls.oldpassword.errors?.required">
+                            <div *ngIf="passwordform.controls.oldpassword.errors?.required">
                               Oldpassword is required.
                             </div>
-                            <div *ngIf="postjobform.controls.oldpassword.errors?.minlength">
+                            <div *ngIf="passwordform.controls.oldpassword.errors?.minlength">
                               Oldpassword must be at least 8 characters long.
                             </div>
                           </div>
@@ -460,12 +343,12 @@
                           <input type="password" formControlName="password" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="postjobform.controls.password.invalid && ((postjobform.controls.password.dirty || postjobform.controls.password.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.password.invalid && ((passwordform.controls.password.dirty || passwordform.controls.password.touched) || isRegisterFormValid)"
                             class="alert alert-danger">
-                            <div *ngIf="postjobform.controls.password.errors?.required">
+                            <div *ngIf="passwordform.controls.password.errors?.required">
                               Password is required.
                             </div>
-                            <div *ngIf="postjobform.controls.password.errors?.minlength">
+                            <div *ngIf="passwordform.controls.password.errors?.minlength">
                               Password must be at least 8 characters long.
                             </div>
                           </div>
@@ -475,16 +358,16 @@
                           <input type="password" formControlName="confirmPassword" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="postjobform.controls.confirmPassword.invalid && ((postjobform.controls.confirmPassword.dirty || postjobform.controls.confirmPassword.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.confirmPassword.invalid && ((passwordform.controls.confirmPassword.dirty || passwordform.controls.confirmPassword.touched) || isRegisterFormValid)"
                             class="alert alert-danger">
-                            <div *ngIf="postjobform.controls.confirmPassword.errors?.required">
+                            <div *ngIf="passwordform.controls.confirmPassword.errors?.required">
                               Confirm password is required.
                             </div>
-                            <div *ngIf="postjobform.controls.confirmPassword.errors?.minlength">
+                            <div *ngIf="passwordform.controls.confirmPassword.errors?.minlength">
                               Confirm password must be at least 8 characters long.
                             </div>
                             <div
-                              *ngIf="(postjobform.controls.confirmPassword.errors?.mustMatch)||(postjobform.controls.confirmPassword.errors?.minlength)">
+                              *ngIf="(passwordform.controls.confirmPassword.errors?.mustMatch)||(passwordform.controls.confirmPassword.errors?.minlength)">
                               Confirm password should be same as password.
                             </div>
 
@@ -522,6 +405,13 @@
             <div class="form-group col-lg-12">
               <input type="text" formControlName="title" placeholder="Title1">
             </div>
+            <div
+              *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isRegisterFormValid)"
+              class="alert alert-danger">
+              <div *ngIf="postjobform.controls.title.errors?.required">
+                Title is required.
+              </div>
+            </div>
             <div class="form-group col-lg-12">
               <input type="text" formControlName="country" placeholder="country">
             </div>
@@ -558,10 +448,17 @@
     <div class="post-project">
       <h3>Post a project</h3>
       <div class="post-project-fields">
-        <form [formGroup]="postjobform" (ngSubmit)="updateprojects()">
+        <form [formGroup]="postprojectform" (ngSubmit)="updateprojects()">
           <div class="row">
             <div class="col-lg-12">
               <input type="text" formControlName="title1" placeholder="title">
+            </div>
+            <div
+              *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isRegisterFormValid)"
+              class="alert alert-danger">
+              <div *ngIf="postprojectform.controls.title1.errors?.required">
+                Title is required.
+              </div>
             </div>
             <div class="col-lg-12">
               <input type="text" formControlName="country1" placeholder="country">
@@ -595,36 +492,6 @@
         </form>
       </div>
       <a (click)="close()" title="">(X)</a>
-    </div>
-  </div>
-</ng-template>
-<ng-template #updatepost>
-  <div [froalaEditor] [(froalaModel)]="editorContent">
-  </div>
-  <div>
-    <div class="card">
-      <div class="card-body">
-        <form [formGroup]="postjobform">
-          <div class="text-center">
-            <img [src]="imgSrc" width="500px" height="300px" (click)="fileUploader.click()">
-          </div>
-          <div class="form-group ">
-            <label>Select file to upload</label>
-            <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-              (change)="showPreview($event)">
-          </div>
-          <div><button (click)="filereset()">Reset</button></div>
-        </form>
-      </div>
-
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <a (click)="close()" class="btn btn-primary btn-block float-right">CANCEL</a>
-    </div>
-    <div class="form-group col-md-6">
-      <button type="submit" (click)="updateposts()" class="btn btn-success btn-block float-right">Submit</button>
     </div>
   </div>
 </ng-template>
