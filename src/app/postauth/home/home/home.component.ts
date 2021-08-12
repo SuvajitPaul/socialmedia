@@ -27,12 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   updateWithId: any;
   data: any = {};
   details: any = {};
-  profilerole: any = "";
+  email: any = "";
   search: any;
   title: any;
   searchjobitem: any;
   searchproject: any;
-  isRegisterFormValid: boolean = false;
+  isFormValid: boolean = false;
   constructor(private jobapi: PostshareService, private projectapi: PostprojectService, private formBuilder: FormBuilder, private modalService: BsModalService, private searchservice: SearchService, private toastr: ToastrService) {
     this.postjobform = this.formBuilder.group({
       price: [''],
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.data = localStorage.getItem('authData');
     this.details = JSON.parse(this.data);
     if (this.details) {
-      this.profilerole = this.details.UserName;
+      this.email = this.details.email;
     }
   }
   Viewdata() {
@@ -109,8 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   Updaterecordjob(record: any, template: TemplateRef<any>) {
     console.log('record', record.data);
     this.updateWithId = record.id;
-    this.postjobform.patchValue({
-      id: record.id,
+    this.postjobform.setValue({
       title: record.data.title,
       country: record.data.country,
       skills: record.data.skills,
@@ -120,14 +119,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(template);
   }
   updatejobs() {
-    this.isRegisterFormValid = true;
+    this.isFormValid = true;
     if (this.postjobform.valid) {
+      this.isFormValid = false;
       this.postjobform.value['id'] = this.updateWithId;
       let record: any = {};
       record['title'] = this.postjobform.value.title;
       record['country'] = this.postjobform.value.country;
       record['skills'] = this.postjobform.value.skills;
-      record['username'] = this.details.UserName;
+      record['email'] = this.details.email;
       record['name'] = this.details.FirstName;
       record['price'] = this.postjobform.value.price;
       record['description'] = this.postjobform.value.description;
@@ -140,8 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   editproject(record: any, template: TemplateRef<any>) {
     console.log('project', record);
     this.updateWithId = record.id;
-    this.postprojectform.patchValue({
-      id: record.id,
+    this.postprojectform.setValue({
       title1: record.data.title1,
       country1: record.data.country1,
       skills1: record.data.skills1,
@@ -152,14 +151,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(template);
   }
   updateprojects() {
-    this.isRegisterFormValid = true;
+    this.isFormValid = true;
     if (this.postprojectform.valid) {
+      this.isFormValid = false;
       this.postprojectform.value['id'] = this.updateWithId;
       let record: any = {};
       record['title1'] = this.postprojectform.value.title1;
       record['country1'] = this.postprojectform.value.country1;
       record['skills1'] = this.postprojectform.value.skills1;
-      record['username'] = this.details.UserName;
+      record['email'] = this.details.email;
       record['name'] = this.details.FirstName;
       record['price1'] = this.postprojectform.value.price1;
       record['price2'] = this.postprojectform.value.price2;
@@ -178,14 +178,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.searchjobitem = this.jobpost.filter((item: any) => {
           return item.data.title.toLowerCase().includes(this.search.toLowerCase())
         });
-        console.log('searchitem', this.searchjobitem)
-        if (this.search) {
-          this.searchproject = this.projectpost.filter((item1: any) => {
-            //console.log('projectitem',item1.data.title1);
-            return item1.data.title1.toLowerCase().includes(this.search.toLowerCase())
-          });
-          console.log('searchproject', this.searchproject)
-        }
+      }
+      console.log('searchitem', this.searchjobitem)
+      if (this.search) {
+        this.searchproject = this.projectpost.filter((item1: any) => {
+          //console.log('projectitem',item1.data.title1);
+          return item1.data.title1.toLowerCase().includes(this.search.toLowerCase())
+        });
+        console.log('searchproject', this.searchproject)
       }
     });
   }

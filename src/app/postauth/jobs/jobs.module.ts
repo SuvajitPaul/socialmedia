@@ -5,14 +5,18 @@ import { JobsComponent } from './jobs/jobs.component';
 import { HeaderModule } from 'src/app/shared/header/header.module';
 import { PostshareService } from 'src/app/service/postshare.service';
 import { SearchService } from 'src/app/service/search.service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     JobsComponent
   ],
   imports: [
     CommonModule,
-    HeaderModule,  
+    HeaderModule,
+    FormsModule,
+    MatButtonModule,
+    ReactiveFormsModule,  
     JobsRoutingModule
   ],
   providers:[PostshareService,SearchService]

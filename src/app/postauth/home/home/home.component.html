@@ -7,7 +7,6 @@
         <div class="container">
             <div class="main-section-data">
                 <div class="row">
-
                     <div class="col-lg-3 col-md-4 pd-left-none no-pd">
                         <div class="main-left-sidebar no-margin">
                             <app-leftpanel></app-leftpanel>
@@ -46,7 +45,7 @@
                                                     <li>
                                                         <a title="">
                                                             <span class="material-icons-outlined"
-                                                                *ngIf="job.data.username==profilerole">
+                                                                *ngIf="job.data.email==email">
                                                                 <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
                                                                     (click)="Updaterecordjob(job,updatejob)">Edit
                                                             </span>
@@ -55,7 +54,7 @@
                                                     <li>
                                                         <a title="">
                                                             <span class="material-icons-outlined"
-                                                                *ngIf="job.data.username==profilerole">
+                                                                *ngIf="job.data.email==email">
                                                                 <img src="../../../../assets/1x/outline_delete_black_24dp.png"
                                                                     (click)="Deleterecordjob(job.id)">Delete
                                                             </span>
@@ -103,7 +102,7 @@
                                                     <li>
                                                         <a title="">
                                                             <span class="material-icons-outlined"
-                                                                *ngIf="searchjob.data.username==profilerole">
+                                                                *ngIf="searchjob.data.email==email">
                                                                 <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
                                                                     (click)="Updaterecordjob(searchjob,updatejob)">Edit
                                                             </span>
@@ -112,7 +111,7 @@
                                                     <li>
                                                         <a title="">
                                                             <span class="material-icons-outlined"
-                                                                *ngIf="searchjob.data.username==profilerole">
+                                                                *ngIf="searchjob.data.email==email">
                                                                 <img src="../../../../assets/1x/outline_delete_black_24dp.png"
                                                                     (click)="Deleterecordjob(searchjob.id)">Delete
                                                             </span>
@@ -160,7 +159,7 @@
                                                         <li>
                                                             <a title="">
                                                                 <span class="material-icons-outlined"
-                                                                    *ngIf="post.data.username==profilerole">
+                                                                    *ngIf="post.data.email==email">
                                                                     <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
                                                                         (click)="editproject(post,updateproject)">Edit
                                                                 </span>
@@ -169,7 +168,7 @@
                                                         <li>
                                                             <a title="">
                                                                 <span class="material-icons-outlined"
-                                                                    *ngIf="post.data.username==profilerole">
+                                                                    *ngIf="post.data.email==email">
                                                                     <img src="../../../../assets/1x/outline_delete_black_24dp.png"
                                                                         (click)="Deleterecordproject(post.id)">Delete
                                                                 </span>
@@ -221,7 +220,7 @@
                                                         <li>
                                                             <a title="">
                                                                 <span class="material-icons-outlined"
-                                                                    *ngIf="post.data.username==profilerole">
+                                                                    *ngIf="post.data.email==email">
                                                                     <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
                                                                         (click)="editproject(post,updateproject)">Edit
                                                                 </span>
@@ -230,7 +229,7 @@
                                                         <li>
                                                             <a title="">
                                                                 <span class="material-icons-outlined"
-                                                                    *ngIf="post.data.username==profilerole">
+                                                                    *ngIf="post.data.email==email">
                                                                     <img src="../../../../assets/1x/outline_delete_black_24dp.png"
                                                                         (click)="Deleterecordproject(post.id)">Delete
                                                                 </span>
@@ -280,9 +279,9 @@
                 <form [formGroup]="postjobform" (ngSubmit)="updatejobs()">
                     <div class="row">
                         <div class="form-group col-lg-12">
-                            <input type="text" formControlName="title" placeholder="Title1">
+                            <input type="text" formControlName="title" placeholder="Title">
                         </div>
-                        <div *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isRegisterFormValid)"
+                        <div *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isFormValid)"
                             class="alert alert-danger">
                             <div *ngIf="postjobform.controls.title.errors?.required">
                                 Title is required.
@@ -326,9 +325,9 @@
                 <form [formGroup]="postprojectform" (ngSubmit)="updateprojects()">
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="text" formControlName="title1" placeholder="5565">
+                            <input type="text" formControlName="title1" placeholder="Title">
                         </div>
-                        <div *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isRegisterFormValid)"
+                        <div *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isFormValid)"
                             class="alert alert-danger">
                             <div *ngIf="postprojectform.controls.title1.errors?.required">
                                 Title is required.

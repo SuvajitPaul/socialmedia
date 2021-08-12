@@ -27,12 +27,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   passwordform: FormGroup;
   modalRef!: BsModalRef;
   role: string = " ";
-  profilerole: string = '';
+  email: string = '';
   ColumnMode = ColumnMode;
   SortType = SortType;
   rows: any;
   block: boolean = false;
-  isRegisterFormValid: boolean = false;
+  isFormValid: boolean = false;
   post: any = {};
   user: string = "Suvajit";
   cren: any;
@@ -93,8 +93,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profiledetails();
     console.log('profilezzxzccdxc', this.details);
-    this.profilerole = this.details.UserName;
-    console.log('role1', this.profilerole);
+    this.email = this.details.email;
+    console.log('role1', this.email);
     this.rows = this.details.data;
     this.searchdata();
   }
@@ -127,10 +127,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   passwordupdate() {
     console.log('password');
-    this.isRegisterFormValid = true;
+    this.isFormValid = true;
     if (this.passwordform.valid) {
       console.log('password valid');
-      this.isRegisterFormValid = false;
+      this.isFormValid = false;
       this.profiledetails();
       let oldPassword = this.details.password;
       let typeoldpassword = this.passwordform.value.oldpassword;
@@ -141,9 +141,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         record['password'] = this.details.password;
         record['FirstName'] = this.details.FirstName;
         record['Phonenumber'] = this.details.Phonenumber;
-        record['UserName'] = this.details.UserName;
-        record['dob'] = this.details.dob;
         record['email'] = this.details.email;
+        record['dob'] = this.details.dob;
         record['gender'] = this.details.gender;
         record['role_id'] = this.details.role_id;
         this.cren = localStorage.getItem('authData1');
@@ -161,7 +160,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     } else {
       console.log('inside else');
-      this.isRegisterFormValid = true;
+      this.isFormValid = true;
       return;
     }
   }
@@ -176,8 +175,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   Updaterecordjob(record: any, template: TemplateRef<any>) {
     console.log('record', record.data);
     this.updateWithId = record.id;
-    this.postjobform.patchValue({
-      id: record.id,
+    this.postjobform.setValue({
       title: record.data.title,
       country: record.data.country,
       skills: record.data.skills,
@@ -189,8 +187,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editproject(record: any, template: TemplateRef<any>) {
     console.log('project', record);
     this.updateWithId = record.id;
-    this.postprojectform.patchValue({
-      id: record.id,
+    this.postprojectform.setValue({
       title1: record.data.title1,
       country1: record.data.country1,
       skills1: record.data.skills1,
@@ -201,12 +198,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(template);
   }
   updateprojects() {
-    this.isRegisterFormValid = true;
+    this.isFormValid = true;
     if (this.postprojectform.valid) {
-      this.isRegisterFormValid = false;
+      this.isFormValid = false;
       this.postprojectform.value['id'] = this.updateWithId;
       this.postprojectform.value['name'] = this.details.FirstName;
-      this.postprojectform.value['username'] = this.details.UserName;
+      this.postprojectform.value['email'] = this.details.email;
       this.projectapi.Update(this.updateWithId, this.postprojectform.value);
       this.toastr.success('Project post updated');
       this.postprojectform.reset();
@@ -232,12 +229,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   updatejobs() {
-    this.isRegisterFormValid = true;
+    this.isFormValid = true;
     if (this.postjobform.valid) {
-      this.isRegisterFormValid = false;
+      this.isFormValid = false;
       this.postjobform.value['id'] = this.updateWithId;
       this.postjobform.value['name'] = this.details.FirstName;
-      this.postjobform.value['username'] = this.details.UserName;
+      this.postjobform.value['email'] = this.details.email;
       this.jobapi.Update(this.updateWithId, this.postjobform.value);
       this.toastr.success('Job record updated');
       this.postjobform.reset();
@@ -256,13 +253,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.searchjobitem = this.jobpost.filter((item: any) => {
           return item.data.title.toLowerCase().includes(this.search.toLowerCase())
         });
-        console.log('searchitem', this.searchjobitem)
-        if (this.search) {
-          this.searchproject = this.projectpost.filter((item1: any) => {
-            return item1.data.title1.toLowerCase().includes(this.search.toLowerCase())
-          });
-          console.log('searchproject', this.searchproject)
-        }
+      }
+      console.log('searchitem', this.searchjobitem)
+      if (this.search) {
+        this.searchproject = this.projectpost.filter((item1: any) => {
+          return item1.data.title1.toLowerCase().includes(this.search.toLowerCase())
+        });
+        console.log('searchproject', this.searchproject)
       }
     });
   }

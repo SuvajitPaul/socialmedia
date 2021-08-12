@@ -56,7 +56,7 @@
                   <div class="posts-section">
                     <div *ngIf="!search; else jobpostBlock">
                       <div *ngFor="let job of jobpost;let i = index;">
-                        <div *ngIf="job.data.username==profilerole">
+                        <div *ngIf="job.data.email==email">
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -96,7 +96,7 @@
                             <div class="job_descp">
                               <h3>{{job.data.title | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a  title="">Full Time</a></li>
+                                <li><a title="">Full Time</a></li>
                                 <li><span>{{job.data.price | currency:'INR'}} CTC</span></li>
                               </ul>
                               <h6 class="text-warning">Description</h6>
@@ -110,7 +110,7 @@
                     </div>
                     <ng-template #jobpostBlock>
                       <div *ngFor="let job of searchjobitem;let i = index;">
-                        <div *ngIf="job.data.username==profilerole">
+                        <div *ngIf="job.data.email==email">
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -164,7 +164,7 @@
                     </ng-template>
                     <div *ngIf="!search; else projectblock">
                       <div *ngFor="let project of projectpost;let i = index;">
-                        <div *ngIf="project.data.username==profilerole">
+                        <div *ngIf="project.data.email==email">
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -206,7 +206,7 @@
                             <div class="job_descp">
                               <h3> {{project.data.title1 | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a  title="">Project Cost Ranges</a></li>
+                                <li><a title="">Project Cost Ranges</a></li>
                                 <li><span> {{project.data.price1 | currency:'INR':'code'}} </span>
                                 </li>
                                 <li><span>to</span></li>
@@ -224,7 +224,7 @@
                     </div>
                     <ng-template #projectblock>
                       <div *ngFor="let project of searchproject;let i = index;">
-                        <div *ngIf="project.data.username==profilerole">
+                        <div *ngIf="project.data.email==email">
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -301,7 +301,6 @@
                             <th scope="col" class="text-center">Name</th>
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">Phone</th>
-                            <th scope="col" class="text-center">Username</th>
                             <th scope="col" class="text-center">Gender</th>
                             <th scope="col" class="text-center">Profession</th>
                           </tr>
@@ -311,7 +310,6 @@
                             <td>{{details.FirstName}}</td>
                             <td>{{details.email}}</td>
                             <td>{{details.Phonenumber}}</td>
-                            <td>{{details.UserName}}</td>
                             <td>{{details.gender}}</td>
                             <td>{{details.role_id}}</td>
                           </tr>
@@ -328,7 +326,7 @@
                           <input type="password" formControlName="oldpassword" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="passwordform.controls.oldpassword.invalid && ((passwordform.controls.oldpassword.dirty || passwordform.controls.oldpassword.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.oldpassword.invalid && ((passwordform.controls.oldpassword.dirty || passwordform.controls.oldpassword.touched) || isFormValid)"
                             class="alert alert-danger">
                             <div *ngIf="passwordform.controls.oldpassword.errors?.required">
                               Oldpassword is required.
@@ -343,7 +341,7 @@
                           <input type="password" formControlName="password" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="passwordform.controls.password.invalid && ((passwordform.controls.password.dirty || passwordform.controls.password.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.password.invalid && ((passwordform.controls.password.dirty || passwordform.controls.password.touched) || isFormValid)"
                             class="alert alert-danger">
                             <div *ngIf="passwordform.controls.password.errors?.required">
                               Password is required.
@@ -358,7 +356,7 @@
                           <input type="password" formControlName="confirmPassword" class="form-control"
                             placeholder="at least 8 characters" required>
                           <div
-                            *ngIf="passwordform.controls.confirmPassword.invalid && ((passwordform.controls.confirmPassword.dirty || passwordform.controls.confirmPassword.touched) || isRegisterFormValid)"
+                            *ngIf="passwordform.controls.confirmPassword.invalid && ((passwordform.controls.confirmPassword.dirty || passwordform.controls.confirmPassword.touched) || isFormValid)"
                             class="alert alert-danger">
                             <div *ngIf="passwordform.controls.confirmPassword.errors?.required">
                               Confirm password is required.
@@ -403,10 +401,10 @@
         <form [formGroup]="postjobform" (ngSubmit)="updatejobs()">
           <div class="row">
             <div class="form-group col-lg-12">
-              <input type="text" formControlName="title" placeholder="Title1">
+              <input type="text" formControlName="title" placeholder="Title">
             </div>
             <div
-              *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isRegisterFormValid)"
+              *ngIf="postjobform.controls.title.invalid && ((postjobform.controls.title.dirty || postjobform.controls.title.touched) || isFormValid)"
               class="alert alert-danger">
               <div *ngIf="postjobform.controls.title.errors?.required">
                 Title is required.
@@ -451,10 +449,10 @@
         <form [formGroup]="postprojectform" (ngSubmit)="updateprojects()">
           <div class="row">
             <div class="col-lg-12">
-              <input type="text" formControlName="title1" placeholder="title">
+              <input type="text" formControlName="title1" placeholder="Title">
             </div>
             <div
-              *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isRegisterFormValid)"
+              *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isFormValid)"
               class="alert alert-danger">
               <div *ngIf="postprojectform.controls.title1.errors?.required">
                 Title is required.

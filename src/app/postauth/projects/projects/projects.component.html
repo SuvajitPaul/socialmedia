@@ -21,7 +21,27 @@
                 <li><img src="../../../../assets/images/icon9.png"
                         alt=""><span>{{post.data.country1}}</span>
                 </li>
-            </ul>        
+            </ul>
+            <ul class="bk-links">
+                <li>
+                    <a title="">
+                        <span class="material-icons-outlined"
+                            *ngIf="post.data.email==email">
+                            <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                (click)="editproject(post,updateproject)">Edit
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a title="">
+                        <span class="material-icons-outlined"
+                            *ngIf="post.data.email==email">
+                            <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                (click)="Deleterecordproject(post.id)">Delete
+                        </span>
+                    </a>
+                </li>
+            </ul> 
         </div>
         <div class="job_descp">
             <h3> {{post.data.title1| uppercase}}</h3>
@@ -61,7 +81,27 @@
                     <li><img src="../../../../assets/images/icon9.png"
                             alt=""><span>{{post.data.country1}}</span>
                     </li>
-                </ul>            
+                </ul>
+                <ul class="bk-links">
+                    <li>
+                        <a title="">
+                            <span class="material-icons-outlined"
+                                *ngIf="post.data.email==email">
+                                <img src="../../../../assets/1x/outline_edit_note_black_24dp.png"
+                                    (click)="editproject(post,updateproject)">Edit
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a title="">
+                            <span class="material-icons-outlined"
+                                *ngIf="post.data.email==email">
+                                <img src="../../../../assets/1x/outline_delete_black_24dp.png"
+                                    (click)="Deleterecordproject(post.id)">Delete
+                            </span>
+                        </a>
+                    </li>
+                </ul>      
             </div>
             <div class="job_descp">
                 <h3> {{post.data.title1| uppercase}}</h3>
@@ -78,6 +118,58 @@
                 <h6 class="text-danger ">Skill</h6>
                 <p>{{post.data.skills1}}</p>
             </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #updateproject>
+    <div>
+        <div class="post-project">
+            <h3>Post a project</h3>
+            <div class="post-project-fields">
+                <form [formGroup]="postprojectform" (ngSubmit)="updateprojects()">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="title1" placeholder="Title">
+                        </div>
+                        <div *ngIf="postprojectform.controls.title1.invalid && ((postprojectform.controls.title1.dirty || postprojectform.controls.title1.touched) || isFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="postprojectform.controls.title1.errors?.required">
+                                Title is required.
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="country1" placeholder="country">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" formControlName="skills1" placeholder="Skills">
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="price-sec">
+                                <div class="price-br">
+                                    <input type="text" formControlName="price1" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                                <span>To</span>
+                                <div class="price-br">
+                                    <input type="text" formControlName="price2" placeholder="Price">
+                                    <i class="la la-dollar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea formControlName="description1" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                <li><button mat-raised-button color="warn" type="submit">Update</button>
+                                </li>
+                                <li><button (click)="close()" mat-raised-button>Cancel</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <a (click)="close()" title="">(X)</a>
         </div>
     </div>
 </ng-template>

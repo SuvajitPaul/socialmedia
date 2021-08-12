@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <input class="text" type="text" formControlName="fullname" placeholder="Fullname" required="">
                 </div>
-                <div *ngIf="RegisterForm.controls.fullname.invalid && ((RegisterForm.controls.fullname.dirty || RegisterForm.controls.fullname.touched) || isRegisterFormValid)"
+                <div *ngIf="RegisterForm.controls.fullname.invalid && ((RegisterForm.controls.fullname.dirty || RegisterForm.controls.fullname.touched) || isFormValid)"
                     class="alert alert-danger">
                     <div *ngIf="RegisterForm.controls.fullname.errors?.required">
                         Fullname is required.
@@ -19,27 +19,10 @@
                         Fullname must be at least 3 characters long.
                     </div>
                 </div>
-                <br>
-                <div class="form-group">
-                    <input class="text" type="text" formControlName="username" placeholder="Username" required="">
-                </div>
-                <div *ngIf="RegisterForm.controls.username.invalid && ((RegisterForm.controls.username.dirty || RegisterForm.controls.username.touched) || isRegisterFormValid)"
-                    class="alert alert-danger">
-                    <div *ngIf="RegisterForm.controls.username.errors?.required">
-                        username is required.
-                    </div>
-                    <div *ngIf="RegisterForm.controls.username.errors?.maxlength">
-                        username cannot be more than
-                        {{RegisterForm.controls.username.errors?.maxlength?.requiredLength}} characters long.
-                    </div>
-                    <div *ngIf="RegisterForm.controls.username.errors?.minlength">
-                        username must be at least 2 characters long.
-                    </div>
-                </div>
                 <div class="form-group">
                     <input class="text email" type="email" formControlName="email" placeholder="Email" required="">
                 </div>
-                <div *ngIf="RegisterForm.controls.email.invalid && ((RegisterForm.controls.email.dirty || RegisterForm.controls.email.touched) || isRegisterFormValid)"
+                <div *ngIf="RegisterForm.controls.email.invalid && ((RegisterForm.controls.email.dirty || RegisterForm.controls.email.touched) || isFormValid)"
                     class="alert alert-danger">
                     <div *ngIf="RegisterForm.controls.email.errors?.required">
                         email is required.
@@ -53,7 +36,7 @@
                     <input class="text" (keypress)="keyPress($event)" type="text" formControlName="mobilenumber"
                         placeholder="Phonenumber" minlength="10" maxlength="10" required="">
                 </div>
-                <div *ngIf="RegisterForm.controls.mobilenumber.invalid && ((RegisterForm.controls.mobilenumber.dirty || RegisterForm.controls.mobilenumber.touched) || isRegisterFormValid)"
+                <div *ngIf="RegisterForm.controls.mobilenumber.invalid && ((RegisterForm.controls.mobilenumber.dirty || RegisterForm.controls.mobilenumber.touched) || isFormValid)"
                     class="alert alert-danger">
                     <div *ngIf="RegisterForm.controls.mobilenumber.errors?.required">
                         mobilenumber is required.
@@ -71,7 +54,7 @@
                 <div class="form-group">
                     <input class="text" type="text" formControlName="profession" placeholder="Profession" required="">
                 </div>
-                <div *ngIf="RegisterForm.controls.profession.invalid && ((RegisterForm.controls.profession.dirty || RegisterForm.controls.profession.touched) || isRegisterFormValid)"
+                <div *ngIf="RegisterForm.controls.profession.invalid && ((RegisterForm.controls.profession.dirty || RegisterForm.controls.profession.touched) || isFormValid)"
                     class="alert alert-danger">
                     <div *ngIf="RegisterForm.controls.profession.errors?.required">
                         profession is required.
@@ -88,7 +71,7 @@
                 <div class="form-group">
                     <input class="text" type="text" formControlName="gender" placeholder="Gender" required="">
                 </div>
-                <div *ngIf="RegisterForm.controls.gender.invalid && ((RegisterForm.controls.gender.dirty || RegisterForm.controls.gender.touched) || isRegisterFormValid)"
+                <div *ngIf="RegisterForm.controls.gender.invalid && ((RegisterForm.controls.gender.dirty || RegisterForm.controls.gender.touched) || isFormValid)"
                     class="alert alert-danger">
                     <div *ngIf="RegisterForm.controls.gender.errors?.required">
                         Gender is required.
@@ -99,12 +82,11 @@
                     </div>
                 </div>
                 <br>
-                <br>
                 <div class="form-group">
                     <div class="form-group col-lg-12 no-pdd">
                         <div class="sn-field">
                             <input type="password" formControlName="password" placeholder="Password">
-                            <div *ngIf="RegisterForm.controls.password.invalid && ((RegisterForm.controls.password.dirty || RegisterForm.controls.password.touched) || isRegisterFormValid)"
+                            <div *ngIf="RegisterForm.controls.password.invalid && ((RegisterForm.controls.password.dirty || RegisterForm.controls.password.touched) || isFormValid)"
                                 class="alert alert-danger">
                                 <div *ngIf="RegisterForm.controls.password.errors?.required">Password is required</div>
                                 <div *ngIf="RegisterForm.controls.password.errors?.minlength">Password must be at least
@@ -121,7 +103,7 @@
                     <div class="form-group col-lg-12 no-pdd">
                         <div class="sn-field">
                             <input type="password" formControlName="confirmpassword" placeholder="Confirm Password">
-                            <div *ngIf="RegisterForm.controls.confirmpassword.invalid && ((RegisterForm.controls.confirmpassword.dirty || RegisterForm.controls.confirmpassword.touched) || isRegisterFormValid)"
+                            <div *ngIf="RegisterForm.controls.confirmpassword.invalid && ((RegisterForm.controls.confirmpassword.dirty || RegisterForm.controls.confirmpassword.touched) || isFormValid)"
                                 class="alert alert-danger">
                                 <div *ngIf="RegisterForm.controls.confirmpassword.errors?.required">Password is required
                                 </div>

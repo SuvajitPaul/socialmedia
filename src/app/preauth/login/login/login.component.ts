@@ -12,7 +12,7 @@ import { GoogleserviceService } from 'src/app/service/googleservice.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   Loginform: FormGroup;
-  isRegisterFormValid: boolean = false;
+  isFormValid: boolean = false;
   visible: boolean = false;
   reg: any;
   userName: any;
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private route: Router, private formBuilder: FormBuilder, private regservice: RegService, private toastr: ToastrService, private spinner: NgxSpinnerService, private googleservice: GoogleserviceService) {
     this.Loginform = this.formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
     });
   }
@@ -40,14 +40,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   logindata() {
     this.spinner.show();
     if (this.Loginform.valid) {
-      this.isRegisterFormValid = false;
-      this.userName = this.Loginform.getRawValue().username;
+      this.isFormValid = false;
+      this.userName = this.Loginform.getRawValue().email;
       this.passWord = this.Loginform.getRawValue().password;
       this.regdata();
     }
     else {
       this.spinner.hide();
-      this.isRegisterFormValid = true;
+      this.isFormValid = true;
     }
   }
   regdata() {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         object["id"] = item.payload.doc.id;
         return object;
       })
-      this.user = this.reg.find((item: any) => item.data.UserName === this.userName && item.data.password === this.passWord);
+      this.user = this.reg.find((item: any) => item.data.email === this.userName && item.data.password === this.passWord);
       console.log('find', this.user);
       if (this.user) {
         setTimeout(() => {

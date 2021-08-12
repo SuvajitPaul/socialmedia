@@ -14,37 +14,30 @@
             <div class="col-lg-6">
                 <div class="login-sec">
                     <ul class="sign-control">
-                       <li><button type=submit routerLink="" mat-raised-button color="warn">Sign in</button></li>
-                       <li><button type=submit routerLink="reg" mat-raised-button>Sign up</button></li>
+                        <li><button type=submit routerLink="" mat-raised-button color="warn">Sign in</button></li>
+                        <li><button type=submit routerLink="reg" mat-raised-button>Sign up</button></li>
                     </ul>
                     <div class="sign_in_sec current" id="tab-1">
                         <h3>Sign in</h3>
                         <form [formGroup]="Loginform" (ngSubmit)="logindata()">
                             <div class="row">
-                                <div class="form-group col-lg-12 no-pdd">
-                                    <div class="sn-field">
-                                        <input type="text" formControlName="username" placeholder="Username">
-                                    </div>
+                                <div class="form-group">
+                                    <input class="text email" type="email" formControlName="email" placeholder="Email" required="">
                                 </div>
-                                <div *ngIf="Loginform.controls.username.invalid && ((Loginform.controls.username.dirty || Loginform.controls.username.touched) || isRegisterFormValid)"
+                                <div *ngIf="Loginform.controls.email.invalid && ((Loginform.controls.email.dirty || Loginform.controls.email.touched) || isFormValid)"
                                     class="alert alert-danger">
-                                    <div *ngIf="Loginform.controls.username.errors?.required">
-                                        username is required.
+                                    <div *ngIf="Loginform.controls.email.errors?.required">
+                                        email is required.
                                     </div>
-                                    <div *ngIf="Loginform.controls.username.errors?.maxlength">
-                                        username cannot be more than
-                                        {{Loginform.controls.username.errors?.maxlength?.requiredLength}} characters
-                                        long.
-                                    </div>
-                                    <div *ngIf="Loginform.controls.username.errors?.minlength">
-                                        username must be at least 2 characters long.
-                                    </div>
+                                    <div *ngIf="Loginform.controls.email.errors?.pattern" class="error"><sup>*</sup>Please enter
+                                        correct
+                                        email</div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-group col-lg-12 no-pdd">
                                         <div class="sn-field">
                                             <input type="password" formControlName="password" placeholder="Password">
-                                            <div *ngIf="Loginform.controls.password.invalid && ((Loginform.controls.password.dirty || Loginform.controls.password.touched) || isRegisterFormValid)"
+                                            <div *ngIf="Loginform.controls.password.invalid && ((Loginform.controls.password.dirty || Loginform.controls.password.touched) || isFormValid)"
                                                 class="alert alert-danger">
                                                 <div *ngIf="Loginform.controls.password.errors?.required">Password is
                                                     required</div>
@@ -77,8 +70,6 @@
                                             <img src="../../../../assets/1x/outline_g_translate_black_24dp.png">
                                         </span>Login Via Google
                                     </button>
-
-
                                 </li>
                             </ul>
                         </div>
