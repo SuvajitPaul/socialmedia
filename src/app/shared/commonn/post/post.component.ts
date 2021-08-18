@@ -61,7 +61,7 @@ export class PostComponent implements OnInit {
       rec['price2'] = this.postprojectform.value.price2;
       rec['description1'] = this.postprojectform.value.description1;
       rec['country1'] = this.postprojectform.value.country1;
-      rec['name'] = this.details.FirstName;
+      rec['name'] = this.details.displayName;
       rec['email'] = this.details.email;
       this.projectapi.Insert(rec);
       this.postprojectform.reset();
@@ -86,7 +86,7 @@ export class PostComponent implements OnInit {
       record['price'] = this.postjobform.value.price;
       record['description'] = this.postjobform.value.description;
       record['country'] = this.postjobform.value.country;
-      record['name'] = this.details.FirstName;
+      record['name'] = this.details.displayName;
       record['email'] = this.details.email;
       this.jobapi.Insert(record).then((res: any) => {
         console.log('data', res);

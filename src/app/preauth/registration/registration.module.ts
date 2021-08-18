@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
-import { RegService } from 'src/app/service/reg.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @NgModule({
@@ -16,6 +16,6 @@ import { RegService } from 'src/app/service/reg.service';
     ReactiveFormsModule,
     RegistrationRoutingModule
   ],
-  providers:[RegService]
+  providers:[AuthService]
 })
 export class RegistrationModule { }

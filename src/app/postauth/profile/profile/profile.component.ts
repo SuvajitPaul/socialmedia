@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { PostprojectService } from 'src/app/service/postproject.service';
 import { PostshareService } from 'src/app/service/postshare.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { RegService } from 'src/app/service/reg.service';
 import { Router } from '@angular/router';
 import { SearchService } from 'src/app/service/search.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { UserdetailsService } from 'src/app/service/userdetails.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,37 +19,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
   data: any = {};
   details: any = {};
   jobpost: any;
-  sharepost: any;
   projectpost: any;
   updateWithId: any;
   postjobform: FormGroup;
   postprojectform: FormGroup;
-  passwordform: FormGroup;
+  userform: FormGroup;
   modalRef!: BsModalRef;
-  role: string = " ";
   email: string = '';
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-  rows: any;
   block: boolean = false;
   isFormValid: boolean = false;
-  post: any = {};
-  user: string = "Suvajit";
-  cren: any;
   joblink: Subscription | any;
   projectlink: Subscription | any;
   searchlink: Subscription | any;
-  showjob: boolean = false;
-  rowIndexArray: any = [];
-  hit: boolean = true;
-  title: any;
+  userlink: Subscription | any;
   search: any;
   searchjobitem: any;
   searchproject: any;
-  searchpost: any;
-  url: any;
-
-  constructor(private jobapi: PostshareService, private projectapi: PostprojectService, private formBuilder: FormBuilder, private modalService: BsModalService, private storage: AngularFireStorage, private service: RegService, private router: Router, private toastr: ToastrService, private searchservice: SearchService) {
+  userinformation: any;
+  username: string = '';
+  updateprofile: boolean = true;;
+  constructor(private jobapi: PostshareService, private projectapi: PostprojectService, private formBuilder: FormBuilder, private modalService: BsModalService, private storage: AngularFireStorage, private router: Router, private toastr: ToastrService, private searchservice: SearchService, public userinfo: UserdetailsService) {
     this.postjobform = this.formBuilder.group({
       price: [''],
       title: ['', Validators.required],
@@ -65,12 +54,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       description1: [''],
       country1: [''],
     });
-    this.passwordform = this.formBuilder.group({
-      oldpassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-    }, {
-      validator: this.MustMatch('password', 'confirmPassword')
+    this.userform = this.formBuilder.group({
+      mobilenumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+      gender: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      profession: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])]
     });
     this.resetform();
     this.Viewdata();
@@ -88,81 +75,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.searchlink.unsubscribe();
       console.log('Destroy');
     }
+    if (this.userlink) {
+      this.userlink.unsubscribe();
+      console.log('Destroy');
+    }
   }
-
   ngOnInit(): void {
     this.profiledetails();
     console.log('profilezzxzccdxc', this.details);
     this.email = this.details.email;
+    this.username = this.details.displayName;
     console.log('role1', this.email);
-    this.rows = this.details.data;
     this.searchdata();
-  }
-  MustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    }
   }
   profiledetails() {
     this.data = localStorage.getItem('authData');
     this.details = JSON.parse(this.data);
   }
-  chnpassword() {
-    this.block = true;
-  }
+
   cancel() {
-    this.passwordform.reset();
+    this.userform.reset();
+    this.updateprofile = true;
     this.block = false;
-  }
-  passwordupdate() {
-    console.log('password');
-    this.isFormValid = true;
-    if (this.passwordform.valid) {
-      console.log('password valid');
-      this.isFormValid = false;
-      this.profiledetails();
-      let oldPassword = this.details.password;
-      let typeoldpassword = this.passwordform.value.oldpassword;
-      if (oldPassword === typeoldpassword) {
-        console.log('password match');
-        this.details['password'] = this.passwordform.value.password;
-        let record: any = {};
-        record['password'] = this.details.password;
-        record['FirstName'] = this.details.FirstName;
-        record['Phonenumber'] = this.details.Phonenumber;
-        record['email'] = this.details.email;
-        record['dob'] = this.details.dob;
-        record['gender'] = this.details.gender;
-        record['role_id'] = this.details.role_id;
-        this.cren = localStorage.getItem('authData1');
-        let crenid = JSON.parse(this.cren);
-        this.updateWithId = crenid.id;
-        console.log('updatewithId', this.updateWithId);
-        this.service.Update(this.updateWithId, record);
-        this.toastr.success('Password updated');
-        setTimeout(() => {
-          this.passwordform.reset();
-          localStorage.removeItem("authData");
-          localStorage.removeItem("authData1");
-          this.router.navigateByUrl('/');
-        }, 2000);
-      }
-    } else {
-      console.log('inside else');
-      this.isFormValid = true;
-      return;
-    }
   }
   Deleterecordjob(id: any) {
     this.jobapi.Delete(id);
@@ -202,7 +136,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.postprojectform.valid) {
       this.isFormValid = false;
       this.postprojectform.value['id'] = this.updateWithId;
-      this.postprojectform.value['name'] = this.details.FirstName;
+      this.postprojectform.value['name'] = this.details.displayName;
       this.postprojectform.value['email'] = this.details.email;
       this.projectapi.Update(this.updateWithId, this.postprojectform.value);
       this.toastr.success('Project post updated');
@@ -227,13 +161,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
       console.log('projectpost', this.projectpost);
     });
+    this.userlink = this.userinfo.getuserdetails().subscribe((res) => {
+      this.userinformation = res.map(item => {
+        const object: any = item.payload.doc.data();
+        object["id"] = item.payload.doc.id;
+        return object;
+      });
+      console.log('userinformation', this.userinformation);
+    });
+    // this.userinfo.userinformation.subscribe(data =>{  
+    //   console.log('res',data);
+    // })
   }
   updatejobs() {
     this.isFormValid = true;
     if (this.postjobform.valid) {
       this.isFormValid = false;
       this.postjobform.value['id'] = this.updateWithId;
-      this.postjobform.value['name'] = this.details.FirstName;
+      this.postjobform.value['name'] = this.details.displayName;
       this.postjobform.value['email'] = this.details.email;
       this.jobapi.Update(this.updateWithId, this.postjobform.value);
       this.toastr.success('Job record updated');
@@ -266,6 +211,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
   resetform() {
     this.postjobform.reset();
     this.postprojectform.reset();
-    this.passwordform.reset();
+    this.userform.reset();
+  }
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  userformupdate(record: any) {
+    this.updateprofile = false;
+    console.log('userrecord', record);
+    this.block = true;
+    this.updateWithId = record.id;
+    this.userform.setValue({
+      mobilenumber: record.Phonenumber,
+      gender: record.gender,
+      profession: record.profession,
+    });
+  }
+  updateuserform() {
+    this.isFormValid = true;
+    if (this.userform.valid) {
+      this.isFormValid = false;
+      let record: any = {};
+      record['gender'] = this.userform.value.gender;
+      record['Phonenumber'] = this.userform.value.mobilenumber;
+      record['profession'] = this.userform.value.profession;
+      record['fullname'] = this.details.displayName;
+      record['email'] = this.details.email;
+      this.userinfo.updateuserDetails(this.updateWithId, record);
+      this.cancel();
+      this.toastr.success('Profile updated');
+    }
   }
 }

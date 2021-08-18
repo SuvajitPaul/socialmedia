@@ -25,34 +25,113 @@
             <div class="col-lg-6">
               <div class="main-ws-sec">
                 <div class="user-tab-sec">
-                  <h3 [ngClass]="['text-success']">{{details.FirstName | customepipe:this.details.gender }}</h3>
-                  <div class="star-descp">
-                    <span>{{this.details.role_id}}</span>
-                  </div>
+                  <h3 [ngClass]="['text-success']">Hi {{username}}</h3>
                   <div class="post-topbar">
                     <div class="user-picy">
                       <img src="../../../../assets/images/resources/user.png" alt="">
                     </div>
                     <app-post></app-post>
                   </div>
-                  <div class="tab-feed">
-                    <ul>
-                      <li data-tab="feed-dd" class="active">
-                        <a title="">
-                          <img src="../../../../assets/images/ic1.png" alt="">
-                          <span>Feed</span>
-                        </a>
-                      </li>
-                      <li data-tab="info-dd">
-                        <a routerLink="/postauth/profile" title="">
-                          <img src="../../../../assets/images/ic2.png" alt="">
-                          <span>Info</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
                 <div class="product-feed-tab current" id="feed-dd">
+                  <div>
+                    <div class="user-profile-ov">
+                      <h3>Overview</h3>
+                      <div *ngFor="let user of userinformation;let i = index;">
+                        <div *ngIf="user.email==email">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Email</th>
+                                <th scope="col" class="text-center">Phone</th>
+                                <th scope="col" class="text-center">Gender</th>
+                                <th scope="col" class="text-center">Profession</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{user.fullname}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.Phonenumber}}</td>
+                                <td>{{user.gender}}</td>
+                                <td>{{user.profession}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div *ngIf="updateprofile">
+                            <button type="submit" (click)="userformupdate(user)" class="btn btn-primary">Update
+                              Profile</button>
+                          </div>
+                        </div>
+                      </div>
+                      <br><br>
+                    </div>
+                    <div class="user-profile-ov container">
+                      <div *ngIf="block">
+                        <h2>Update Form</h2>
+                        <form [formGroup]="userform" (ngSubmit)="updateuserform()">
+                          <div class="form-group">
+                            <input class="text" (keypress)="keyPress($event)" type="text" formControlName="mobilenumber"
+                              placeholder="Phonenumber" minlength="10" maxlength="10" required="">
+                          </div>
+                          <div
+                            *ngIf="userform.controls.mobilenumber.invalid && ((userform.controls.mobilenumber.dirty || userform.controls.mobilenumber.touched) || isFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="userform.controls.mobilenumber.errors?.required">
+                              mobilenumber is required.
+                            </div>
+                            <div *ngIf="userform.controls.mobilenumber.errors?.maxlength">
+                              mobilenumber cannot be more than
+                              {{userform.controls.username.errors?.maxlength?.requiredLength}} characters long.
+                            </div>
+                            <div *ngIf="userform.controls.mobilenumber.errors?.minlength">
+                              mobilenumber must be at least 10 characters long.
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <input class="text" type="text" formControlName="profession" placeholder="Profession"
+                              required="">
+                          </div>
+                          <div
+                            *ngIf="userform.controls.profession.invalid && ((userform.controls.profession.dirty || userform.controls.profession.touched) || isFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="userform.controls.profession.errors?.required">
+                              profession is required.
+                            </div>
+                            <div *ngIf="userform.controls.profession.errors?.maxlength">
+                              profession cannot be more than
+                              {{userform.controls.profession.errors?.maxlength?.requiredLength}} characters long.
+                            </div>
+                            <div *ngIf="userform.controls.profession.errors?.minlength">
+                              profession must be at least 8 characters long.
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <input class="text" type="text" formControlName="gender" placeholder="Gender" required="">
+                          </div>
+                          <div
+                            *ngIf="userform.controls.gender.invalid && ((userform.controls.gender.dirty || userform.controls.gender.touched) || isFormValid)"
+                            class="alert alert-danger">
+                            <div *ngIf="userform.controls.gender.errors?.required">
+                              Gender is required.
+                            </div>
+
+                            <div *ngIf="userform.controls.gender.errors?.minlength">
+                              Gender must be at least 4 characters long.
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" value="Update Password" class="btn btn-primary">
+                            <button id="signupSubmit" type="reset" class="btn btn-warning"
+                              (click)="cancel()">Canncel</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                   <div class="posts-section">
                     <div *ngIf="!search; else jobpostBlock">
                       <div *ngFor="let job of jobpost;let i = index;">
@@ -96,7 +175,7 @@
                             <div class="job_descp">
                               <h3>{{job.data.title | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a title="">Full Time</a></li>
+                                <li><a title="">JOB</a></li>
                                 <li><span>{{job.data.price | currency:'INR'}} CTC</span></li>
                               </ul>
                               <h6 class="text-warning">Description</h6>
@@ -150,7 +229,7 @@
                             <div class="job_descp">
                               <h3>{{job.data.title | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a title="">Full Time</a></li>
+                                <li><a title="">JOB</a></li>
                                 <li><span>{{job.data.price | currency:'INR'}} CTC</span></li>
                               </ul>
                               <h6 class="text-warning">Description</h6>
@@ -206,7 +285,7 @@
                             <div class="job_descp">
                               <h3> {{project.data.title1 | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a title="">Project Cost Ranges</a></li>
+                                <li><a title="">Project</a></li>
                                 <li><span> {{project.data.price1 | currency:'INR':'code'}} </span>
                                 </li>
                                 <li><span>to</span></li>
@@ -266,7 +345,7 @@
                             <div class="job_descp">
                               <h3> {{project.data.title1 | uppercase}}</h3>
                               <ul class="job-dt">
-                                <li><a title="">Project Cost Ranges</a></li>
+                                <li><a title="">Project</a></li>
                                 <li><span> {{project.data.price1 | currency:'INR':'code'}} </span>
                                 </li>
                                 <li><span>to</span></li>
@@ -282,102 +361,13 @@
                         </div>
                       </div>
                     </ng-template>
-                    <div class="process-comm">
-                      <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                      </div>
-                    </div>
                   </div>
                 </div>
-                <div class="product-feed-tab" id="info-dd">
-                  <div class="user-profile-ov">
-                    <h3>Overview</h3>
-                    <div>
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th scope="col" class="text-center">Name</th>
-                            <th scope="col" class="text-center">Email</th>
-                            <th scope="col" class="text-center">Phone</th>
-                            <th scope="col" class="text-center">Gender</th>
-                            <th scope="col" class="text-center">Profession</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>{{details.FirstName}}</td>
-                            <td>{{details.email}}</td>
-                            <td>{{details.Phonenumber}}</td>
-                            <td>{{details.gender}}</td>
-                            <td>{{details.role_id}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <a (click)="chnpassword()">Change password</a>
-                    </div>
-                  </div>
-                  <div class="user-profile-ov container">
-                    <div *ngIf="block">
-                      <form [formGroup]="passwordform" (ngSubmit)="passwordupdate()">
-                        <div class="form-group">
-                          <label style="color:#ff4500;" class="control-label" required> Old Password</label>
-                          <input type="password" formControlName="oldpassword" class="form-control"
-                            placeholder="at least 8 characters" required>
-                          <div
-                            *ngIf="passwordform.controls.oldpassword.invalid && ((passwordform.controls.oldpassword.dirty || passwordform.controls.oldpassword.touched) || isFormValid)"
-                            class="alert alert-danger">
-                            <div *ngIf="passwordform.controls.oldpassword.errors?.required">
-                              Oldpassword is required.
-                            </div>
-                            <div *ngIf="passwordform.controls.oldpassword.errors?.minlength">
-                              Oldpassword must be at least 8 characters long.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label style="color:#ff4500;" class="control-label" required>New Password</label>
-                          <input type="password" formControlName="password" class="form-control"
-                            placeholder="at least 8 characters" required>
-                          <div
-                            *ngIf="passwordform.controls.password.invalid && ((passwordform.controls.password.dirty || passwordform.controls.password.touched) || isFormValid)"
-                            class="alert alert-danger">
-                            <div *ngIf="passwordform.controls.password.errors?.required">
-                              Password is required.
-                            </div>
-                            <div *ngIf="passwordform.controls.password.errors?.minlength">
-                              Password must be at least 8 characters long.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label style="color:#ff4500;" class="control-label" required>Confirm Password</label>
-                          <input type="password" formControlName="confirmPassword" class="form-control"
-                            placeholder="at least 8 characters" required>
-                          <div
-                            *ngIf="passwordform.controls.confirmPassword.invalid && ((passwordform.controls.confirmPassword.dirty || passwordform.controls.confirmPassword.touched) || isFormValid)"
-                            class="alert alert-danger">
-                            <div *ngIf="passwordform.controls.confirmPassword.errors?.required">
-                              Confirm password is required.
-                            </div>
-                            <div *ngIf="passwordform.controls.confirmPassword.errors?.minlength">
-                              Confirm password must be at least 8 characters long.
-                            </div>
-                            <div
-                              *ngIf="(passwordform.controls.confirmPassword.errors?.mustMatch)||(passwordform.controls.confirmPassword.errors?.minlength)">
-                              Confirm password should be same as password.
-                            </div>
-
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <input type="submit" value="Update Password" class="btn btn-primary">
-                          <button id="signupSubmit" type="reset" class="btn btn-warning"
-                            (click)="cancel()">Canncel</button>
-                        </div>
-                      </form>
-                    </div>
+                <div class="process-comm">
+                  <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
                   </div>
                 </div>
               </div>

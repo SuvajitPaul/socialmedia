@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderRoutingModule } from './header-routing.module';
+
+import { CommonnRoutingModule } from './commonn-routing.module';
 import { HeaderComponent } from './header/header.component';
-import { SearchService } from 'src/app/service/search.service';
 import { PostComponent } from './post/post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-
-
+import { SearchService } from 'src/app/service/search.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HeaderRoutingModule
+    CommonnRoutingModule
   ],
   exports:[
     HeaderComponent,
@@ -27,4 +26,4 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   providers:[SearchService]
 })
-export class HeaderModule { }
+export class CommonnModule { }

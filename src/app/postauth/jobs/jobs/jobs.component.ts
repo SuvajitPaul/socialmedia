@@ -77,7 +77,7 @@ export class JobsComponent implements OnInit, OnDestroy {
       record['country'] = this.postjobform.value.country;
       record['skills'] = this.postjobform.value.skills;
       record['email'] = this.details.email;
-      record['name'] = this.details.FirstName;
+      record['name'] = this.details.displayName;
       record['price'] = this.postjobform.value.price;
       record['description'] = this.postjobform.value.description;
       this.jobapi.Update(this.updateWithId, record);

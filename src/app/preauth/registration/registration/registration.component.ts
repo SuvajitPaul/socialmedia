@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { RegService } from 'src/app/service/reg.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
   RegisterForm: FormGroup;
   visible: boolean = false;
-
+  authError:any;
   dynType: string = 'password';
   isFormValid: boolean = false;
-  constructor(private formBuilder: FormBuilder, private regservice: RegService, private toastr: ToastrService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private toastr: ToastrService, private router: Router) {
     this.RegisterForm = this.formBuilder.group({
       fullname: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(25)])],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
@@ -47,6 +47,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.message();
   }
   regdata() {
     if (this.RegisterForm.valid) {
@@ -58,15 +59,7 @@ export class RegistrationComponent implements OnInit {
       record['gender'] = this.RegisterForm.value.gender;
       record['role_id'] = this.RegisterForm.value.profession;
       record['password'] = this.RegisterForm.value.password;
-      this.regservice.Insert(record).then((res) => {
-        console.log('data', res);
-        this.toastr.success('Register Successfully');
-        record = '';
-        this.reset();
-        this.router.navigateByUrl('');
-      }).catch((err) => {
-        console.log(err);
-      })
+      this.auth.createUser(record);
     } else {
       this.isFormValid = true;
     }
@@ -81,5 +74,10 @@ export class RegistrationComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+  message(){
+    this.auth.eventAuthErrors.subscribe(data =>{
+      this.authError = data;
+    })
   }
 }

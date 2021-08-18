@@ -5,7 +5,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SearchService } from 'src/app/service/search.service';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
+import { UserdetailsService } from 'src/app/service/userdetails.service';
 
 
 @Component({
@@ -18,6 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   joblink: Subscription | any;
   projectlink: Subscription | any;
   searchlink: Subscription | any;
+
+
   jobpost: any;
   projectpost: any = '';
   postjobform: FormGroup;
@@ -33,7 +37,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchjobitem: any;
   searchproject: any;
   isFormValid: boolean = false;
-  constructor(private jobapi: PostshareService, private projectapi: PostprojectService, private formBuilder: FormBuilder, private modalService: BsModalService, private searchservice: SearchService, private toastr: ToastrService) {
+  userdetails: any;
+  users: any;
+  user: any;
+  userid:any;
+  constructor(private jobapi: PostshareService, private projectapi: PostprojectService, private formBuilder: FormBuilder, private modalService: BsModalService, private searchservice: SearchService, private toastr: ToastrService, private auth: AuthService, public userinfo: UserdetailsService, private auth1: UserdetailsService) {
     this.postjobform = this.formBuilder.group({
       price: [''],
       title: ['', Validators.required],
@@ -69,13 +77,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit(): void {
+
   }
   profiledetails() {
     this.data = localStorage.getItem('authData');
     this.details = JSON.parse(this.data);
-    if (this.details) {
-      this.email = this.details.email;
-    }
+    this.email = this.details.email;
+    console.log('email', this.email);
+    this.auth.getUserState()
+      .subscribe(user => {
+        this.user = user;
+      })
   }
   Viewdata() {
     this.joblink = this.jobapi.View().subscribe((res) => {
@@ -93,6 +105,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       })
       console.log('projectpost', this.projectpost);
     });
+
+    
+
   }
   close() {
     this.resetform();
@@ -128,7 +143,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       record['country'] = this.postjobform.value.country;
       record['skills'] = this.postjobform.value.skills;
       record['email'] = this.details.email;
-      record['name'] = this.details.FirstName;
+      record['name'] = this.details.displayName;
       record['price'] = this.postjobform.value.price;
       record['description'] = this.postjobform.value.description;
       this.jobapi.Update(this.updateWithId, record);
@@ -160,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       record['country1'] = this.postprojectform.value.country1;
       record['skills1'] = this.postprojectform.value.skills1;
       record['email'] = this.details.email;
-      record['name'] = this.details.FirstName;
+      record['name'] = this.details.displayName;
       record['price1'] = this.postprojectform.value.price1;
       record['price2'] = this.postprojectform.value.price2;
       record['description1'] = this.postprojectform.value.description1;
@@ -171,17 +186,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   searchdata() {
-    this.searchlink = this.searchservice.getSearchData().subscribe((search: any) => {
+    this.searchlink = this.searchservice.searchdata.subscribe((search: any) => {
       console.log('searchdata', search);
       this.search = search;
       if (this.search) {
-        this.searchjobitem = this.jobpost.filter((item: any) => {
+        this.searchjobitem = this.jobpost.find((item: any) => {
           return item.data.title.toLowerCase().includes(this.search.toLowerCase())
         });
       }
       console.log('searchitem', this.searchjobitem)
       if (this.search) {
-        this.searchproject = this.projectpost.filter((item1: any) => {
+        this.searchproject = this.projectpost.find((item1: any) => {
           //console.log('projectitem',item1.data.title1);
           return item1.data.title1.toLowerCase().includes(this.search.toLowerCase())
         });

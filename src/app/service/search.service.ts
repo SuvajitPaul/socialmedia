@@ -7,13 +7,13 @@ import { Subject } from 'rxjs';
 export class SearchService {
   public searchData: BehaviorSubject<any> = new BehaviorSubject(null);
   //private searchData: Subject<any> = new Subject;
-
+  public searchdata=this.searchData.asObservable();
   constructor() { }
   //SEARCH DATA SET AS OBSERVABLE
   setSearchData(data: any) {
     this.searchData.next(data);
   }
   getSearchData() {
-    return this.searchData;
+    return this.searchData.asObservable();
   }
 }

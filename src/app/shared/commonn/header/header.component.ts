@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'src/app/service/search.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private route: Router, private service: SearchService, private toastr: ToastrService) { }
+  constructor(private route: Router, private service: SearchService, private toastr: ToastrService,private auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -20,9 +21,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     let logout = confirm("Are you want to logout");
     if (logout == true) {
-      this.toastr.success('Log Out');
+      this.auth.logout();
       localStorage.removeItem('authData');
-      localStorage.removeItem("authData1");
+      this.toastr.success('Log Out');
       this.route.navigateByUrl('');
     } 
   }

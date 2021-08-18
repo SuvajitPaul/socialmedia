@@ -80,7 +80,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       record['country1'] = this.postprojectform.value.country1;
       record['skills1'] = this.postprojectform.value.skills1;
       record['email'] = this.details.email;
-      record['name'] = this.details.FirstName;
+      record['name'] = this.details.displayName;
       record['price1'] = this.postprojectform.value.price1;
       record['price2'] = this.postprojectform.value.price2;
       record['description1'] = this.postprojectform.value.description1;

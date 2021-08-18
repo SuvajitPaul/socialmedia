@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { RegService } from 'src/app/service/reg.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 import { GoogleserviceService } from 'src/app/service/googleservice.service';
+import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,8 +20,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   dynType: string = 'password';
   user: any;
   reglink: any;
+  authError:any;
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private regservice: RegService, private toastr: ToastrService, private spinner: NgxSpinnerService, private googleservice: GoogleserviceService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private auth: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private googleservice: GoogleserviceService,private toaster: ToastrService) {
     this.Loginform = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.message();
   }
 
   logindata() {
@@ -50,27 +52,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isFormValid = true;
     }
   }
-  regdata() {
-    this.reglink = this.regservice.View().subscribe((res) => {
-      this.reg = res.map(item => {
-        const object: any = item.payload.doc.data();
-        object["id"] = item.payload.doc.id;
-        return object;
-      })
-      this.user = this.reg.find((item: any) => item.data.email === this.userName && item.data.password === this.passWord);
-      console.log('find', this.user);
-      if (this.user) {
-        setTimeout(() => {
-          this.storedata();
-          this.spinner.hide();
-        }, 1000);
-      }
-      else {
-        this.spinner.hide();
-        this.toastr.error('Login Failed', 'Error');
-        console.log('credential incorrect');
-      }
-    })
+  regdata(){
+    this.auth.login( this.userName, this.passWord);
   }
   storedata() {
     this.toastr.success('Login', 'success');
@@ -81,5 +64,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   googlesignin() {
     this.googleservice.googleLogin();
+  }
+  message(){
+    this.auth.eventAuthErrors.subscribe(data =>{
+      this.spinner.hide();
+      this.authError = data;
+    })
   }
 }

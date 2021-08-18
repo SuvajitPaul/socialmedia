@@ -4,11 +4,10 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderModule } from 'src/app/shared/header/header.module';
-import { RegService } from 'src/app/service/reg.service';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { GoogleserviceService } from 'src/app/service/googleservice.service';
 import {MatButtonModule} from '@angular/material/button';
+import { AuthService } from 'src/app/service/auth.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import {MatButtonModule} from '@angular/material/button';
   ],
   imports: [
     CommonModule,
-    HeaderModule,
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -25,6 +23,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     LoginRoutingModule
   ],
-  providers: [RegService,GoogleserviceService]
+  providers: [AuthService,GoogleserviceService]
 })
 export class LoginModule { }

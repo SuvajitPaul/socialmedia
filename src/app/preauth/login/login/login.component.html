@@ -19,6 +19,9 @@
                     </ul>
                     <div class="sign_in_sec current" id="tab-1">
                         <h3>Sign in</h3>
+                        <div class="row" *ngIf="authError">
+                            <div class="col-12 alert alert-danger">{{ authError?.message }}</div>
+                          </div>
                         <form [formGroup]="Loginform" (ngSubmit)="logindata()">
                             <div class="row">
                                 <div class="form-group">
